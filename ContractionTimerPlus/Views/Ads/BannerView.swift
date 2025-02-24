@@ -1,0 +1,32 @@
+//
+//  GADManagerBannerViewController.swift
+//  ContactionTimer
+//
+//  Created by ismail örkler on 23.02.2025.
+//
+
+import SwiftUI
+import GoogleMobileAds
+
+struct BannerView: UIViewControllerRepresentable {
+    let adUnitID: String
+
+    func makeUIViewController(context: Context) -> UIViewController {
+        let viewController = UIViewController()
+        let bannerView = AdManagerBannerView(adSize: AdSizeBanner) // Google Ad Manager Banner View
+        bannerView.adUnitID = adUnitID
+        bannerView.rootViewController = viewController
+        bannerView.load(AdManagerRequest())
+
+        viewController.view.addSubview(bannerView)
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            bannerView.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor),
+            bannerView.bottomAnchor.constraint(equalTo: viewController.view.bottomAnchor)
+        ])
+
+        return viewController
+    }
+
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+}

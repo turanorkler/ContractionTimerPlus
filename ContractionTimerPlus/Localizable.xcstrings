@@ -1,0 +1,211 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@" : {
+
+    },
+    "%@ %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ %2$@"
+          }
+        }
+      }
+    },
+    "%lld" : {
+
+    },
+    "📞 %@" : {
+
+    },
+    "📧 %@" : {
+
+    },
+    "0:00" : {
+
+    },
+    "Add Contact" : {
+
+    },
+    "avg. \nduration" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "avg. \nduration"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ort. \nsüre"
+          }
+        }
+      }
+    },
+    "avg. \nfrequency" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ort. \nfrekans"
+          }
+        }
+      }
+    },
+    "btn_apple_login" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Up with Apple"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple ile Oturum Aç"
+          }
+        }
+      }
+    },
+    "btn_google_login" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Up with Google"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google ile Oturum Aç"
+          }
+        }
+      }
+    },
+    "Contacts" : {
+
+    },
+    "Contraction \nTimer Plus +" : {
+
+    },
+    "Contraction timer is not just a regular \ntimer. It is also a tool for recording and \ncommunicating!" : {
+
+    },
+    "Contractions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contractions"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contractions"
+          }
+        }
+      }
+    },
+    "Delete" : {
+
+    },
+    "Delete all contractions" : {
+
+    },
+    "E-mail" : {
+
+    },
+    "Easy" : {
+
+    },
+    "Edit Contact" : {
+
+    },
+    "Get premium now with only $2.99/weekly" : {
+
+    },
+    "Get premium now with only $9.99/monthly" : {
+
+    },
+    "gift for you!" : {
+
+    },
+    "If your water breaks or significant bleeding occurs, go to the hospital" : {
+
+    },
+    "Lots of features along!" : {
+
+    },
+    "Medium" : {
+
+    },
+    "Name" : {
+
+    },
+    "Name *" : {
+
+    },
+    "Next" : {
+
+    },
+    "No contacts yet" : {
+
+    },
+    "Painful" : {
+
+    },
+    "PDF Oluştur ve İndir" : {
+
+    },
+    "Phone" : {
+
+    },
+    "Report" : {
+
+    },
+    "Rough" : {
+
+    },
+    "Settings" : {
+
+    },
+    "Slight" : {
+
+    },
+    "Start" : {
+
+    },
+    "Swipe left" : {
+
+    },
+    "Time several contractions and the aplication will let you know whether it’s time to go to the hospital" : {
+
+    },
+    "Unlock" : {
+
+    },
+    "Update" : {
+
+    },
+    "Update Contact" : {
+
+    },
+    "Urgent" : {
+
+    },
+    "We have a special" : {
+
+    }
+  },
+  "version" : "1.0"
+}
