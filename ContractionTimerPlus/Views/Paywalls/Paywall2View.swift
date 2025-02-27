@@ -41,7 +41,7 @@ struct Paywall2View : View
                     .foregroundColor(.red)
                 
                 
-                Text("Premium Membership".localized)
+                Text("Premium_Membership".localized)
                     .font(.custom("DMSerifDisplay-Regular", size: 32))
                     .foregroundColor(.white)
                     .padding(0)
@@ -63,7 +63,7 @@ struct Paywall2View : View
                 
                 Spacer()
                 
-                Text("Get premium now with only $9.99/monthly")
+                Text("premium_monthly".localized)
                     .font(.custom("Poppins-Medium", size: 15))
                     .foregroundColor(.white)
                 

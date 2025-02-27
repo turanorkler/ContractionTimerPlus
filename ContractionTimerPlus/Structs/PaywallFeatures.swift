@@ -18,7 +18,7 @@ struct PaywallFeatures: View {
             VStack(alignment: .leading, spacing: 10) {
                 
                 ForEach(constants.paywallMessages, id: \.self) { message in
-                    Text(message)
+                    Text(message.localized)
                         .font(.custom("Poppins-Medium", size: 16))
                         .foregroundColor(color)
                         .lineLimit(nil)

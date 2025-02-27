@@ -22,7 +22,7 @@ struct OnboardingView2: View {
                     .padding()
                 
                 VStack(alignment: .center, spacing: -15) {
-                    Text("Lots of features along!")
+                    Text("Lots_of_features_along".localized)
                         .multilineTextAlignment(.center)
                         .padding(.all, 0)
                 }
@@ -30,36 +30,37 @@ struct OnboardingView2: View {
                 .font(.custom("DMSerifDisplay-Regular", size: 30))
                 .foregroundColor(.black)
                 
-                Text("Contraction timer is not just a regular \ntimer. It is also a tool for recording and \ncommunicating!")
+                
+                Text("Contraction_timer_is_not_just".localized)
                     .multilineTextAlignment(.center)
                     .font(.custom("Poppins-Medium", size: 16))
                     .foregroundColor(.black)
                     .padding(.top, 10)
                     .padding(.horizontal, 20)
+                    .lineLimit(nil)
                 
-                Spacer() // İçeriği yukarı itmek için boşluk bırak
+                Spacer()
                 
-                // Next Butonu
                 NavigationLink(destination: MainView()) {
-                    Text("Next")
+                    Text("Next".localized)
                         .font(.custom("Poppins-Medium", size: 18))
                         .foregroundColor(.black)
-                        .frame(maxWidth: .infinity, minHeight: 50) // Buton genişliği ve yüksekliği
+                        .frame(maxWidth: .infinity, minHeight: 50)
                         .background(
-                        RoundedRectangle(cornerRadius: 15) // Oval kenarlar
-                            .fill(.clear) // Beyaz arka plan
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(.clear)
                             .overlay(
-                                RoundedRectangle(cornerRadius: 15) // Oval kenarlı border
-                                    .stroke(Color.black, lineWidth: 1) // Siyah border
+                                RoundedRectangle(cornerRadius: 15)
+                                    .stroke(Color.black, lineWidth: 1)
                             )
                     )
                 }
-                .padding(.horizontal, 20) // Yanlardan boşluk bırak
+                .padding(.horizontal, 20)
                 .padding(.bottom, 40)
-                .safeAreaPadding(.bottom) // Buton genişliği ve yüksekliği
+                .safeAreaPadding(.bottom)
                 
             }
-            .padding(.top, 40) // İçerik için üst boşluk
+            .padding(.top, 40)
         }
         .navigationBarBackButtonHidden(true)
     }
@@ -69,12 +70,3 @@ struct OnboardingView2: View {
 #Preview {
     OnboardingView2()
 }
-
-
-/*
-ZStack {
-    CustomTextView(text: "Welcome to \nContraction \nTimer Plus", lineSpacing: -15)
-        .font(.custom("DMSerifDisplay-Regular", size: 55))
-        .foregroundColor(.white)
-}
-*/

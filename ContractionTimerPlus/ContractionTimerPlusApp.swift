@@ -15,6 +15,7 @@ struct ContractionTimerPlusApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @ObservedObject var constants = Constants.shared
     @ObservedObject var lm = LanguageManager.shared
+    @ObservedObject var storeManager = StoreManager.shared
     
     var body: some Scene {
         WindowGroup {

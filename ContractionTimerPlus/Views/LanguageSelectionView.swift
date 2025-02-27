@@ -15,30 +15,53 @@ struct LanguageSelectionView: View {
 
     var body: some View {
         
-        
-        ForEach(constants.languages, id: \.1) { flag, language, lang in
-            Button(action: {
-                //selectedLanguage = language
-                //selectedFlag = flag
-                lm.changeLanguage(to: lang)
+        VStack {
+            
+            HStack {
+                Text("Language_Change".localized)
+                    .font(.custom("Poppins-Medium", size: 22))
+                    .foregroundColor(.greenradial)
+                    .frame(maxWidth: .infinity)
+                    .multilineTextAlignment(.center)
                 
-            }) {
-                HStack {
-                    Text("\(flag) \(language)")
-                        .font(.custom("Poppins-Medium", size: 15))
-                        .foregroundColor(.black)
-                    Spacer()
+                //Spacer()
+                
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image(systemName: "xmark")
                 }
-                .padding(.horizontal, 10)
-                .padding(.top, 5)
+                .tint(.black)
+                    
             }
-            Divider() // Her öğe arasına çizgi
-                .background(Color.black)
-        }
-        .navigationTitle("Language_Change".localized)
-        .toolbar {
-            ToolbarItem(placement: .cancellationAction) {
-                Button("Cancel".localized) { dismiss() }
+            .padding()
+            
+            ForEach(constants.languages, id: \.1) { flag, language, lang in
+                Button(action: {
+                    //selectedLanguage = language
+                    //selectedFlag = flag
+                    lm.changeLanguage(to: lang)
+                    
+                }) {
+                    HStack {
+                        
+                        
+                        Image(systemName: "checkmark.circle")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                                .tint(lang == lm.selectedLanguage ? .green : .gray)
+                        
+                        
+                        Text("\(flag) \(language)")
+                            .font(.custom("Poppins-Medium", size: 18))
+                            .foregroundColor(.black)
+                        Spacer()
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.top, 5)
+                }
+                Divider() // Her öğe arasına çizgi
+                    .background(Color.black)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

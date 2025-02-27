@@ -66,12 +66,12 @@
       }
     },
     "avg_frequency" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "avg. \nfrequency"
+            "value" : "avg.\nfrequency"
           }
         },
         "tr" : {
@@ -133,8 +133,16 @@
     "Contraction \nTimer Plus +" : {
 
     },
-    "Contraction timer is not just a regular \ntimer. It is also a tool for recording and \ncommunicating!" : {
-
+    "Contraction_timer_is_not_just" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contraction timer is not just a regular \\ntimer. It is also a tool for recording and \\ncommunicating!"
+          }
+        }
+      }
     },
     "Contractions" : {
       "extractionState" : "manual",
@@ -186,17 +194,6 @@
         }
       }
     },
-    "Edit Contact" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Edit Contact"
-          }
-        }
-      }
-    },
     "Emergency_Texts" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -214,11 +211,16 @@
         }
       }
     },
-    "Get premium now with only $2.99/weekly" : {
-
-    },
-    "Get premium now with only $9.99/monthly" : {
-
+    "Get_Premium_Now" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get Premium Now!"
+          }
+        }
+      }
     },
     "Get_Ready" : {
       "extractionState" : "manual",
@@ -254,7 +256,15 @@
       }
     },
     "gift for you!" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "gift for you"
+          }
+        }
+      }
     },
     "Go_Hospital" : {
       "extractionState" : "manual",
@@ -300,8 +310,16 @@
         }
       }
     },
-    "Lots of features along!" : {
-
+    "Lots_of_features_along" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lots of features along"
+          }
+        }
+      }
     },
     "Medium" : {
 
@@ -312,17 +330,113 @@
     "Name *" : {
 
     },
-    "Next" : {
-
-    },
     "No contacts yet" : {
 
+    },
+    "No_Ads" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Ads"
+          }
+        }
+      }
     },
     "Painful" : {
 
     },
+    "paywall_1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "❤️  Most seamless contraction timer on the market!"
+          }
+        }
+      }
+    },
+    "paywall_2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🍼  Keep & share your contractions report easily"
+          }
+        }
+      }
+    },
+    "paywall_3" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🌸  Useful tips & articles just in time!"
+          }
+        }
+      }
+    },
+    "paywall_4" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "📫  Emergency texts to people with only one tap!"
+          }
+        }
+      }
+    },
     "Phone" : {
 
+    },
+    "premium_3day_try" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get 3-Days Trial Now!"
+          }
+        }
+      }
+    },
+    "Premium_Membership" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium Membership"
+          }
+        }
+      }
+    },
+    "premium_monthly" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get premium now with only $9.99/monthly"
+          }
+        }
+      }
+    },
+    "premium_weekly" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get premium now with only $2.99/weekly"
+          }
+        }
+      }
     },
     "Report" : {
 
@@ -370,6 +484,17 @@
     },
     "Slight" : {
 
+    },
+    "Support" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Support"
+          }
+        }
+      }
     },
     "Swipe left" : {
       "localizations" : {
@@ -433,8 +558,38 @@
         }
       }
     },
-    "We have a special" : {
-
+    "Useful_application" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Useful application to accompany you on your birth journey"
+          }
+        }
+      }
+    },
+    "we_have_a_special" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We have a special"
+          }
+        }
+      }
+    },
+    "Welcome_to" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome to"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

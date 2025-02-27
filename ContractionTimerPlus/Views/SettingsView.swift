@@ -174,7 +174,7 @@ struct SettingsView: View {
         .sheet(isPresented: $lm.showLanguageSheet) {
             LanguageSelectionView()
                 //.presentationDetents([.medium])
-                .presentationDetents([.fraction(0.35)])
+                .presentationDetents([.fraction(0.42)])
         }
         .alert("Are you sure all Records will be deleted?".localized, isPresented: $showDeleteAlert) {
             Button("Cancel".localized, role: .cancel) {

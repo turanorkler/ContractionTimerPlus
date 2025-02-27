@@ -53,10 +53,12 @@ class Constants: ObservableObject {
     ]
     
     let paywallMessages = [
-        "❤️  Most seamless contraction timer on the market!",
-        "🍼  Keep & share your contractions report easily",
-        "🌸  Useful tips & articles just in time!",
-        "📫  Emergency texts to people with only one tap!"
+        "paywall_1",
+        "paywall_2",
+        "paywall_3",
+        "paywall_4"
     ]
+    
+    
 }
 

@@ -18,7 +18,7 @@ class StoreManager: ObservableObject {
     @Published var isSubscriptionActive = false
     @Published var showPaywall = false // Paywall'ı göstermek için
     
-    let productIDs = ["com.trn.contractionsTimer.monthly", "com.trn.contractionsTimer.yearly"]
+    let productIDs = ["com.trn.contractionsTimer.weeklynew", "com.trn.contractionsTimer.yearly"]
     
     init() {
         Task {

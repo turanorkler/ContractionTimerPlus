@@ -45,9 +45,10 @@ struct GeneralButton: View {
                     .frame(width: 100, height: 100)
                 
                 Text("\(isActive ? "Contraction \nStopped" : "Contraction \nStart")")
-                    .font(.custom("Poppins-Medium", size: 18))
+                    .font(.custom("Poppins-Medium", size: 14))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
+                    .padding(.top, 10)
             }
         }
     }

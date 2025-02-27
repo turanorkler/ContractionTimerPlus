@@ -17,6 +17,8 @@ class LanguageManager: ObservableObject {
     init() {
         self.selectedLanguage = UserDefaults.standard.string(forKey: "selectedLanguage") ??
                                 Locale.current.language.languageCode?.identifier ?? "en"
+        
+        print("Selected Language: \(selectedLanguage)")
     }
     
     func changeLanguage(to code: String) {

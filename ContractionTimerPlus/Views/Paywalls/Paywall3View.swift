@@ -40,12 +40,12 @@ struct Paywall3View : View
                     .foregroundColor(.red)
                 
                 
-                Text("We have a special")
+                Text("we_have_a_special".localized)
                     .font(.custom("DMSerifDisplay-Regular", size: 40))
                     .foregroundColor(.white)
                     .padding(.top, 20)
                 
-                Text("gift for you!")
+                Text("gift_for_you".localized)
                     .font(.custom("DMSerifDisplay-Regular", size: 45))
                     .foregroundColor(.lightgreen)
                     .padding(.top, -15)
@@ -61,11 +61,11 @@ struct Paywall3View : View
                 
                 Spacer()
                 
-                Text("Get premium now with only $2.99/weekly")
+                Text("premium_weekly".localized)
                     .font(.custom("Poppins-Medium", size: 15))
                     .foregroundColor(.white)
                 
-                CustomButton2(buttonText: "Get 3-Days Trial Now!", action: {
+                CustomButton2(buttonText: "premium_3day_try", action: {
                     
                 })
                 .padding(.top, 10)

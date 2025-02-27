@@ -25,10 +25,10 @@ struct OnboardingView: View {
                 
 
                 VStack(alignment: .leading, spacing: -15) {
-                    Text("Welcome to".localized)
-                    Text("Contraction".localized)
+                    Text("Welcome_to".localized)
+                    Text(String("Contraction"))
                     HStack {
-                        Text("Timer Plus".localized)
+                        Text(String("Timer Plus"))
                         Image("heart")
                     }
                     .padding(.all,0)
@@ -39,7 +39,7 @@ struct OnboardingView: View {
                 
                 
 
-                Text("Useful application to accompany \nyou on your birth journey".localized)
+                Text("Useful_application".localized)
                     .font(.custom("Poppins-Medium", size: 16))
                     .foregroundColor(.white)
                     .padding(.horizontal, 20)

@@ -9,6 +9,7 @@ import SwiftUI
 struct Paywall1View : View
 {
     @ObservedObject var constants = Constants.shared
+    @ObservedObject var storeManager = StoreManager.shared
     
     var body : some View {
         
@@ -38,13 +39,13 @@ struct Paywall1View : View
                     .foregroundColor(.red)
                 
                 
-                Text("Get Premium Now!".localized)
+                Text("Get_Premium_Now".localized)
                     .font(.custom("DMSerifDisplay-Regular", size: 32))
                     .foregroundColor(.black)
                     .padding(0)
                 
                 
-                Text("No Ads".localized)
+                Text("No_Ads".localized)
                     .padding(10) // 📌 Sadece metnin içinde boşluk bırakır
                     .background(Color.green) // 📌 Arka plan sadece metin ve padding alanını kaplar
                     .cornerRadius(10)
@@ -57,12 +58,18 @@ struct Paywall1View : View
                 
                 Spacer()
                 
-                Text("Get premium now with only $9.99/monthly".localized)
+                Text("premium_monthly".localized)
                     .font(.custom("Poppins-Medium", size: 15))
                     .foregroundColor(.black)
                 
-                CustomButton(buttonText: "Get 3-Days Trial Now!".localized, action: {
-                    
+                CustomButton(buttonText: "premium_3day_try".localized, action: {
+                    if let fetchedProduct = storeManager.products
+                                .first(where: { $0.id == storeManager.productIDs[0] })
+                    {
+                        Task {
+                            try await storeManager.purchase(fetchedProduct)
+                        }
+                    }
                 })
                 .padding(.top, 10)
                 
@@ -72,6 +79,9 @@ struct Paywall1View : View
             .padding(.horizontal, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             
+        }
+        .onAppear {
+           
         }
         .navigationBarBackButtonHidden(true)
     }
