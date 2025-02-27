@@ -40,7 +40,7 @@ struct OnboardingView2: View {
                 Spacer() // İçeriği yukarı itmek için boşluk bırak
                 
                 // Next Butonu
-                NavigationLink(destination: LoginRegisterView()) {
+                NavigationLink(destination: MainView()) {
                     Text("Next")
                         .font(.custom("Poppins-Medium", size: 18))
                         .foregroundColor(.black)

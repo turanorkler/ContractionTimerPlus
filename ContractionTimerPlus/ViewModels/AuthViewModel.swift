@@ -60,7 +60,7 @@ class AuthViewModel: NSObject, ObservableObject {
 
     /// Google ile giriş yap
     func signInWithGoogle() {
-        guard let clientID = FirebaseApp.app()?.options.clientID else {
+        guard (FirebaseApp.app()?.options.clientID) != nil else {
             print("❌ Google Client ID bulunamadı")
             return
         }

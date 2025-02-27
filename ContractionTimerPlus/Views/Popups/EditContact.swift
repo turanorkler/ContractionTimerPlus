@@ -48,7 +48,7 @@ struct EditContact: View {
                         .foregroundColor(.greenradial)
                         .padding(.top, 20)
 
-                    Text(contactNo == 0 ? "Add Contact" : "Edit Contact")
+                    Text(contactNo == 0 ? "Add Contact".localized : "Edit Contact".localized)
                         .font(.custom("Poppins-Medium", size: 25))
                         .foregroundColor(.black)
 

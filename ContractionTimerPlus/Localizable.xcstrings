@@ -23,13 +23,32 @@
     "📧 %@" : {
 
     },
-    "0:00" : {
-
-    },
     "Add Contact" : {
 
     },
-    "avg. \nduration" : {
+    "Add_Contractions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Contractions"
+          }
+        }
+      }
+    },
+    "Ask_intensity_of_contractions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ask intensity of contractions"
+          }
+        }
+      }
+    },
+    "avg_duration" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -46,11 +65,18 @@
         }
       }
     },
-    "avg. \nfrequency" : {
+    "avg_frequency" : {
+      "extractionState" : "stale",
       "localizations" : {
-        "tr" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "avg. \nfrequency"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "ort. \nfrekans"
           }
         }
@@ -90,6 +116,17 @@
         }
       }
     },
+    "Contact_List" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contact List"
+          }
+        }
+      }
+    },
     "Contacts" : {
 
     },
@@ -117,19 +154,65 @@
       }
     },
     "Delete" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
     },
     "Delete all contractions" : {
 
     },
     "E-mail" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-Mail"
+          }
+        }
+      }
     },
     "Easy" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Easy"
+          }
+        }
+      }
     },
     "Edit Contact" : {
-
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Contact"
+          }
+        }
+      }
+    },
+    "Emergency_Texts" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Emergency Texts"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acil Çağrı"
+          }
+        }
+      }
     },
     "Get premium now with only $2.99/weekly" : {
 
@@ -137,11 +220,85 @@
     "Get premium now with only $9.99/monthly" : {
 
     },
+    "Get_Ready" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get Ready"
+          }
+        }
+      }
+    },
+    "Get_Ready_Desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We recommend that you get ready to go to the hospital. Now, you can check whether you packed all the things and documents. Time allows you to take a shower and have a light meal. Continue timing contractions. If the hospital is far away or this is not your first baby, you may be better off going to the hospital right now. In addition, we recommend that you consult you doctor."
+          }
+        }
+      }
+    },
+    "Get_Ready_SubDesc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Average duration of contractions as 1 minute 10 seconds, average frequency is 8 minutes 24 seconds correspond to the initial phase of the first stage of labor."
+          }
+        }
+      }
+    },
     "gift for you!" : {
 
     },
-    "If your water breaks or significant bleeding occurs, go to the hospital" : {
-
+    "Go_Hospital" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go to the hospital"
+          }
+        }
+      }
+    },
+    "Go_Hospital_Desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Call an ambulance or use other transportation and make sure to bring the items and documents you will need during your hospital stay. In addition, we recommend that you consult you doctor."
+          }
+        }
+      }
+    },
+    "Go_Hospital_SubDesc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Average duration of contractions 42 seconds, average frequency is 5 minutes 2 seconds correspond to the activve phase of the labor."
+          }
+        }
+      }
+    },
+    "Language_Change" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Language Change"
+          }
+        }
+      }
     },
     "Lots of features along!" : {
 
@@ -164,44 +321,117 @@
     "Painful" : {
 
     },
-    "PDF Oluştur ve İndir" : {
-
-    },
     "Phone" : {
 
     },
     "Report" : {
 
     },
+    "Restore_Purchases" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore Purchases"
+          }
+        }
+      }
+    },
     "Rough" : {
 
     },
     "Settings" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        }
+      }
+    },
+    "Share_Contractions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share Contractions"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kasılmalarını Paylaş"
+          }
+        }
+      }
     },
     "Slight" : {
 
     },
-    "Start" : {
-
-    },
     "Swipe left" : {
-
-    },
-    "Time several contractions and the aplication will let you know whether it’s time to go to the hospital" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Swipe left"
+          }
+        }
+      }
     },
     "Unlock" : {
-
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock"
+          }
+        }
+      }
+    },
+    "Unlock_all_the_features" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock all the features"
+          }
+        }
+      }
     },
     "Update" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update"
+          }
+        }
+      }
     },
     "Update Contact" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update Contact"
+          }
+        }
+      }
     },
     "Urgent" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Urgent"
+          }
+        }
+      }
     },
     "We have a special" : {
 

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SettingsView: View {
     
+    @StateObject private var lm = LanguageManager.shared
+    @StateObject private var storeManager = StoreManager.shared
     @StateObject private var viewModel = MainViewModel()
     //@StateObject private var contactViewModel: ContactsViewModel
     @Environment(\.modelContext) private var modelContext
@@ -17,6 +19,7 @@ struct SettingsView: View {
     
     @State private var firstRun = false
     @State private var showDeleteAlert = false
+    @State private var showRestoreAlert = false
     
     @Environment(\.dismiss) var dismiss
 
@@ -53,7 +56,7 @@ struct SettingsView: View {
                 
                 
                 //içerik buradan devam edecek...
-                if constants.isPay == false {
+                if storeManager.isSubscriptionActive == false {
                     HStack {
                         
                         VStack(alignment: .leading, spacing: 13) {
@@ -72,7 +75,7 @@ struct SettingsView: View {
                                     Image(systemName: "lock")
                                         .foregroundColor(.white)
                                     
-                                    Text("Unlock")
+                                    Text("Unlock".localized)
                                         .font(.custom("Poppins-Medium", size: 15))
                                         .foregroundColor(.white)
                                     
@@ -110,7 +113,7 @@ struct SettingsView: View {
                         .cornerRadius(10)
                     */
                     
-                    Toggle("Ask intensity of contractions".localized, isOn: $constants.contractionIntensity)
+                    Toggle("Ask_intensity_of_contractions".localized, isOn: $constants.contractionIntensity)
                         .font(.custom("Poppins-Medium", size: 15))
                         .foregroundColor(.black)
                         .padding(.horizontal, 10)
@@ -120,11 +123,25 @@ struct SettingsView: View {
                     
                     NavigationLink(destination: ContactView())
                     {
-                        SettingsButton(title: "Contact List")
+                        SettingsButton(title: "Contact_List".localized)
                     }
                     .foregroundColor(.black)
                     
-                    SettingsButton(title: "Restore purchases")
+                    Button(action: {
+                        Task {
+                            await storeManager.checkSubscriptionStatus()
+                            self.showRestoreAlert = true
+                        }
+                    })
+                    {
+                        SettingsButton(title: "Restore_purchases".localized)
+                    }
+                    
+                    Button(action : {
+                        lm.showLanguageSheet = true
+                    }) {
+                        SettingsButton(title: "Language_Change".localized)
+                    }
                     
                     SettingsButton(title: "Support")
                     
@@ -154,6 +171,11 @@ struct SettingsView: View {
         }
         .edgesIgnoringSafeArea(.all)
         .navigationBarBackButtonHidden(true)
+        .sheet(isPresented: $lm.showLanguageSheet) {
+            LanguageSelectionView()
+                //.presentationDetents([.medium])
+                .presentationDetents([.fraction(0.35)])
+        }
         .alert("Are you sure all Records will be deleted?".localized, isPresented: $showDeleteAlert) {
             Button("Cancel".localized, role: .cancel) {
                 showDeleteAlert = false
@@ -163,6 +185,12 @@ struct SettingsView: View {
                 viewModel.deleteAllProcesses(modelContext: modelContext)
                 showDeleteAlert = false
             }
+        }
+        .alert(isPresented: $showRestoreAlert) {
+            Alert(title: Text("Subscription Control".localized),
+                  message:
+                    Text(storeManager.isSubscriptionActive ? "Subscription is active!".localized : "Subscription no".localized),
+                  dismissButton: .default(Text("Ok".localized)))
         }
     }
 }

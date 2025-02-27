@@ -17,6 +17,13 @@ class MainViewModel: ObservableObject {
     @Published var screen : Screens = .start
     @Published var isLoading = false
     
+    @Published var isError: Bool = false
+    
+    @Published var lastPainDate = "-"
+    @Published var contractionCount = 0
+    @Published var avgDuration = "0:00"
+    @Published var avgFrequency = "0:00"
+    
     private var timer: Timer?
     
     init() {
@@ -30,28 +37,14 @@ class MainViewModel: ObservableObject {
     func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             DispatchQueue.main.async {
-                self.objectWillChange.send() // UI güncellenmesini tetikle
+                //self.objectWillChange.send() // UI güncellenmesini tetikle
+                
+                let pain = self.painLists.max(by: { $0.processNo < $1.processNo })
+                self.lastPainDate = self.formatDuration(pain?.processEndTime?.timeIntervalSince(Date()))
+                self.contractionCount = self.painLists.count
             }
         }
     }
-    
-    /*
-    func addProcess(modelContext : ModelContext) {
-        let newProcess = PaintIntensity(
-            processStartTime: Date(),
-            processEndTime: nil,
-            painIntensity: nil // İlk başta `nil`
-        )
-        modelContext.insert(newProcess)
-        try? modelContext.save()
-        
-        DispatchQueue.main.async {
-            self.lastInsertedProcess = newProcess
-            self.painLists.append(newProcess)
-        }
-        loadPaingList(modelContext: modelContext)
-    }
-    */
     
     func addProcess(modelContext: ModelContext) {
         let newProcess = PainIntensity(
@@ -71,13 +64,6 @@ class MainViewModel: ObservableObject {
     
     func updateProcess(modelContext: ModelContext, newPainIntensity: Int) {
         Task {
-            /*guard let lastProcess = self.lastInsertedProcess else {
-                print("❌ Güncellenecek kayıt bulunamadı.")
-                return
-            }
-
-            print("🔍 Güncellenen Kayıt Öncesi -> processNo: \(lastProcess.processNo), painIntensity: \(String(describing: lastProcess.painIntensity))")
-             */
             let count = painLists.count + 1
             lastInsertedProcess?.painIntensity = newPainIntensity
             lastInsertedProcess?.processNo = count
@@ -120,23 +106,91 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    func formatDuration(_ timeInterval: TimeInterval?) -> String {
+        let duration = timeInterval ?? 0 // Nil ise 0 olarak ayarla
+        let minutes = Int(duration) / 60
+        let seconds = Int(duration) % 60
+        return String(format: "%d:%02d", minutes, seconds) // Örneğin: "0:00", "5:09"
+    }
     
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yy-MM-dd HH:mm:ss"
+        return formatter
+    }()
+    
+    func formattedDate(_ date: Date?) -> String {
+        guard let date = date else { return "-" } // Eğer nil ise "-" döndür
+        return dateFormatter.string(from: date)
+    }
+
+    
+    func getRapor() -> [ReportData] {
+        
+        let sortedPainLists = painLists.sorted { $0.processNo > $1.processNo }
+
+        var newReportList: [ReportData] = []
+
+        for (index, item) in sortedPainLists.enumerated() {
+            //let nextItem = sortedPainLists[index + 1]
+            
+            let nextItem = sortedPainLists.indices.contains(index - 1) ? sortedPainLists[index - 1] : nil
+
+            let reportItem = ReportData(
+                processNo: item.processNo,
+                processStartTime: formattedDate(item.processStartTime),
+                processEndTime: formattedDate(item.processEndTime),
+                painIntensity: "\(item.painIntensity ?? 0)",
+                processDateDifferent: formatDuration(item.processEndTime?.timeIntervalSince(item.processStartTime)),
+                painRange: formatDuration(nextItem?.processStartTime.timeIntervalSince(item.processEndTime!)) + "(\(nextItem?.processNo ?? 0))"
+            )
+
+            newReportList.append(reportItem)
+        }
+        /*
+        for item in sortedPainLists {
+            // Kendinden büyük processNo'ya sahip olan ilk öğeyi bul
+            let nextItem = sortedPainLists.first(where: { $0.processNo > item.processNo })
+
+            // ReportData nesnesini başlat
+            //burada problemler var incelenmesi gerekiyor...
+            let reportItem = ReportData(
+                processNo: item.processNo,
+                processStartTime: formattedDate(item.processStartTime),
+                processEndTime: formattedDate(item.processEndTime),
+                painIntensity: "\(item.painIntensity ?? 0)",
+                processDateDifferent: formatDuration(item.processEndTime?.timeIntervalSince(item.processStartTime)),
+                painRange: formatDuration(nextItem?.processEndTime?.timeIntervalSince(item.processEndTime ?? Date())) + "(\(nextItem?.processNo ?? 0))"
+            )
+
+            newReportList.append(reportItem)
+        }
+        */
+        
+        return newReportList
+    }
+
+    /*
+    func getRapor()
+    {
+        //ReportData(processNo: 1, processStartTime: now, processEndTime: Calendar.current.date(byAdding: .minute, value: 20, to: now))
+        painLists.forEach { (item) in
+            item.
+        }
+    }
+    */
+    
+    //geçici bir fonksiyon
     func loadPaingList2(modelContext: ModelContext) {
         Task {
-            do {
-                print("✅ Ters liste: \(self.painLists.count)")
-                for record in self.painLists.reversed() {
-                    print("📌 processNo: \(record.processNo), StartTime: \(record.processStartTime)")
-                }
-                
-                print("✅ Düz liste: \(self.painLists.count)")
-                for record in self.painLists {
-                    print("📌 processNo: \(record.processNo), StartTime: \(record.processStartTime)")
-                }
-                
+            print("✅ Ters liste: \(self.painLists.count)")
+            for record in self.painLists.reversed() {
+                print("📌 processNo: \(record.processNo), StartTime: \(record.processStartTime)")
+            }
 
-            } catch {
-                print("❌ Veri çekme hatası: \(error.localizedDescription)")
+            print("✅ Düz liste: \(self.painLists.count)")
+            for record in self.painLists {
+                print("📌 processNo: \(record.processNo), StartTime: \(record.processStartTime)")
             }
         }
     }

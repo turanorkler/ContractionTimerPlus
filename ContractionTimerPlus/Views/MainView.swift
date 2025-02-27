@@ -15,7 +15,7 @@ struct MainView: View {
     @StateObject private var viewModel = MainViewModel()
     @ObservedObject var constants = Constants.shared
     @StateObject private var apple = AuthViewModel.shared
-    
+    @StateObject private var storeManager = StoreManager.shared
     @State private var firstRun = false
 
     var body: some View {
@@ -37,7 +37,7 @@ struct MainView: View {
                         }
                         Spacer()
                         
-                        Text("Contractions")
+                        Text("Contractions".localized)
                             .font(.custom("Poppins-Medium", size: 20))
                             .foregroundColor(.black)
                         
@@ -102,10 +102,11 @@ struct MainView: View {
             //.padding(.horizontal, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
+        .environmentObject(viewModel)
         .onAppear {
             if !firstRun {
                 firstRun = false
-                if constants.isPay == false {
+                if storeManager.isSubscriptionActive == false {
                     constants.fullScreenCover = .paywall1
                 }
             }

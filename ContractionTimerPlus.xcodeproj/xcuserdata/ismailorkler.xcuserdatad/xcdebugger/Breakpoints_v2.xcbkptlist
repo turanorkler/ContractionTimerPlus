@@ -3,4 +3,122 @@
    uuid = "91D89FDE-4A55-487A-9D29-9EC0E9177D7E"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F92AA645-6E3E-48F4-92A4-46474E42DBD5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ContractionTimerPlus/Views/Popups/PopUp.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "PopUp"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "F92AA645-6E3E-48F4-92A4-46474E42DBD5 - 71ccbb3b8d248674"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "property wrapper backing initializer of ContractionTimerPlus.PopUp.constants : ContractionTimerPlus.Constants"
+                  moduleName = "ContractionTimerPlus.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ismailorkler/Desktop/Projects/mac/ContractionTimerPlus/ContractionTimerPlus/Views/Popups/PopUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0">
+               </Location>
+               <Location
+                  uuid = "F92AA645-6E3E-48F4-92A4-46474E42DBD5 - c7b8f35bcdb4ab24"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContractionTimerPlus.PopUp.constants.getter : ContractionTimerPlus.Constants"
+                  moduleName = "ContractionTimerPlus.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ismailorkler/Desktop/Projects/mac/ContractionTimerPlus/ContractionTimerPlus/Views/Popups/PopUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0">
+               </Location>
+               <Location
+                  uuid = "F92AA645-6E3E-48F4-92A4-46474E42DBD5 - 713d1d26ff233d0b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContractionTimerPlus.PopUp.constants.setter : ContractionTimerPlus.Constants"
+                  moduleName = "ContractionTimerPlus.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ismailorkler/Desktop/Projects/mac/ContractionTimerPlus/ContractionTimerPlus/Views/Popups/PopUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17">
+               </Location>
+               <Location
+                  uuid = "F92AA645-6E3E-48F4-92A4-46474E42DBD5 - 4e76380d36b9c318"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContractionTimerPlus.PopUp.constants.modify : ContractionTimerPlus.Constants"
+                  moduleName = "ContractionTimerPlus.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ismailorkler/Desktop/Projects/mac/ContractionTimerPlus/ContractionTimerPlus/Views/Popups/PopUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17">
+               </Location>
+               <Location
+                  uuid = "F92AA645-6E3E-48F4-92A4-46474E42DBD5 - 7f1fa1ac1f23b518"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContractionTimerPlus.PopUp.constants.modify : ContractionTimerPlus.Constants with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "ContractionTimerPlus.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///%3Ccompiler-generated%3E"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0">
+               </Location>
+               <Location
+                  uuid = "F92AA645-6E3E-48F4-92A4-46474E42DBD5 - ab70b5bc7b69d001"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContractionTimerPlus.PopUp.$constants.getter : SwiftUI.ObservedObject&lt;ContractionTimerPlus.Constants&gt;.Wrapper"
+                  moduleName = "ContractionTimerPlus.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ismailorkler/Desktop/Projects/mac/ContractionTimerPlus/ContractionTimerPlus/Views/Popups/PopUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17">
+               </Location>
+               <Location
+                  uuid = "F92AA645-6E3E-48F4-92A4-46474E42DBD5 - e62945d89e4bac95"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "default argument 5 of ContractionTimerPlus.PopUp.init(icon: Swift.Optional&lt;Swift.String&gt;, title: Swift.String, description: Swift.String, subDescription: Swift.String, action: () -&gt; (), constants: ContractionTimerPlus.Constants) -&gt; ContractionTimerPlus.PopUp"
+                  moduleName = "ContractionTimerPlus.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ismailorkler/Desktop/Projects/mac/ContractionTimerPlus/ContractionTimerPlus/Views/Popups/PopUp.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

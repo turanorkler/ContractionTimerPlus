@@ -28,22 +28,21 @@ struct PainItem : View {
                     .font(.custom("Poppins-Medium", size: 16))
                     .foregroundColor(.d9)
                     .frame(width: 40, alignment: .leading)
-                    .lineLimit(0)
+                    .lineLimit(nil)
+                    .fixedSize(horizontal: true, vertical: false)
                 
                 Text(formattedTimeDifference())
                     .font(.custom("Poppins-Medium", size: 22))
                     .foregroundColor(.black)
-                    .lineLimit(0)
                     .frame(width: 60, alignment: .leading)
-                    .lineLimit(0)
+                    .lineLimit(nil)
+                    .fixedSize(horizontal: false, vertical: true)
                     //.background(.gray)
                     //.tracking(-0.5)
                 
                 ZStack {
                    
-                    Text("\(pain.processNo)")
-                        .font(.custom("Poppins-Medium", size: 16)  )
-                        .foregroundColor(.black)
+                    
                     
                     if !isLastInserted() {
                         Rectangle()
@@ -65,6 +64,9 @@ struct PainItem : View {
                                     .stroke(isLastInserted() ? Color.orange : Color.clear, lineWidth: 5)
                                     .padding(1) // Kenarlığı içeriye almak için
                             )
+                    Text("\(pain.processNo)")
+                        .font(.custom("Poppins-Medium", size: 16)  )
+                        .foregroundColor(.black)
                 }
                 .frame(height: 70)
                 

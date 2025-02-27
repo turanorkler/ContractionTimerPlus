@@ -10,7 +10,6 @@ import SwiftUI
 struct HomeView: View {
     
     @Environment(\.modelContext) private var modelContext
-    
     @State private var pdfData: PDFWrapper?
     @ObservedObject var constants = Constants.shared
     @EnvironmentObject var viewModel: MainViewModel
@@ -28,10 +27,10 @@ struct HomeView: View {
             HStack(spacing: 10)
             {
                 VStack(alignment: .leading, spacing: 15) {
-                    Text("Last -".localized)
+                    Text("Last".localized + " \(viewModel.lastPainDate)")
                         .lineLimit(nil)
                         .fixedSize(horizontal: false, vertical: true)
-                    Text("Contractions -".localized)
+                    Text("Contractions ".localized + " \(viewModel.contractionCount)")
                         .lineLimit(nil)
                         .fixedSize(horizontal: true, vertical: true)
                 }
@@ -41,11 +40,11 @@ struct HomeView: View {
                 Spacer()
                 
                 VStack(spacing: 5) {
-                    Text("0:00")
+                    Text(viewModel.avgDuration)
                         .lineLimit(nil)
                         .fixedSize(horizontal: true, vertical: true)
                         .foregroundColor(.black)
-                    Text("avg. \nduration".localized)
+                    Text("avg_duration".localized)
                         .lineLimit(nil)
                         .fixedSize(horizontal: true, vertical: true)
                         
@@ -58,10 +57,10 @@ struct HomeView: View {
                 Spacer()
                 
                 VStack(spacing: 5) {
-                    Text("0:00")
+                    Text(viewModel.avgFrequency)
                         .lineLimit(nil)
                         .fixedSize(horizontal: true, vertical: true)
-                    Text("avg. \nfrequency")
+                    Text("avg_frequency".localized)
                         .lineLimit(nil)
                         .fixedSize(horizontal: true, vertical: true)
                         .multilineTextAlignment(.center)
@@ -91,28 +90,6 @@ struct HomeView: View {
             .frame(maxWidth: .infinity)
             .padding(.horizontal, 35)
         
-            //Spacer()
-            /*
-            ScrollView {
-                //veriler buraya listelenecek
-                List(viewModel.painLists, id: \.self) { pain in
-                    
-                    HStack {
-                        Text("No: \(pain.processNo)")
-                        Spacer()
-                        Text(viewModel.timeDifference(for: pain)) // Süreyi göster
-                            .font(.system(size: 16, weight: .bold, design: .monospaced))
-                    }
-                    //ContactRow(contact: contact)
-                        //.environmentObject(viewModel)
-                }
-                .listStyle(.plain)
-                .scrollContentBackground(.hidden)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            //.background(.gray)
-            */
-            
             
             ScrollViewReader { proxy in
                 ScrollView {
@@ -125,25 +102,9 @@ struct HomeView: View {
                                 .id(pain.processNo) // ID ekleyerek kaydırma işlemini yapacağız
                         }
                     }
-                    /*
-                    .onChange(of: viewModel.painLists.count) {
-                        // Yeni kayıt eklenince en başa kaydır
-                        if let index = viewModel.painLists.indices.first {
-                            withAnimation {
-                                scrollProxy?.scrollTo(index, anchor: .top)
-                            }
-                        }
-                    }
-                     */
                 }
                 .onAppear {
-                    self.scrollProxy = proxy // Proxy'yi kaydediyoruz
-                    
-                    /*if let firstPain = sortedPainLists.first {
-                        withAnimation {
-                            proxy.scrollTo(firstPain.processNo, anchor: .top)
-                        }
-                    }*/
+                    self.scrollProxy = proxy
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             }
@@ -162,17 +123,8 @@ struct HomeView: View {
                     viewModel.addProcess(modelContext: modelContext)
                 }
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    /*if let firstPain = sortedPainLists.first { // En büyük processNo'ya sahip elemanı al
-                        withAnimation {
-                            scrollProxy?.scrollTo(firstPain.processNo, anchor: .top)
-                        }
-                    }*/
-                }
-                
             }
             
-            //alt buttonlar burada
             HStack {
                 
                 Button(action: {
@@ -181,7 +133,7 @@ struct HomeView: View {
                     HStack {
                         Image(systemName: "envelope")
                             .foregroundColor(.black)
-                        Text("Share Contractions".localized)
+                        Text("Share_Contractions".localized)
                             .foregroundColor(.black)
                             .font(.custom("Poppins-Medium", size: 13))
                     }
@@ -192,14 +144,16 @@ struct HomeView: View {
                 
                 Button(action: {
                     //viewModel.loadPaingList2(modelContext: modelContext)
-                    let generatedPDF = PDFCreator(painData: viewModel.painLists).createPDF()
+                    let repData = viewModel.getRapor()
+                    let generatedPDF = PDFCreator(painData: repData, title: "aaaa", subtitle: "bbb").createPDF()
                     pdfData = PDFWrapper(data: generatedPDF)
+                    
                 }) {
                     HStack {
                         Image(systemName: "light.beacon.max")
                             .foregroundColor(.white)
                         
-                        Text("Emergency Texts".localized)
+                        Text("Emergency_Texts".localized)
                             .foregroundColor(.white)
                             .font(.custom("Poppins-Medium", size: 13))
                     }
@@ -220,7 +174,7 @@ struct HomeView: View {
             Group {
                 if constants.popUpCover == .addContractions
                 {
-                    Pain(title: "Add Contractions")
+                    Pain(title: "Add_Contractions".localized)
                     { intensity in
                         
                         viewModel.updateProcess(modelContext: modelContext, newPainIntensity: intensity)

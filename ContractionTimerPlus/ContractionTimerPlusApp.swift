@@ -25,18 +25,18 @@ struct ContractionTimerPlusApp: App {
                 Group {
                     if constants.popUpCover == .getReady
                     {
-                        PopUp(icon: "baby", title: "Get Ready",
-                              description:  "We recommend that you get ready to go to the hospital. Now, you can check whether you packed all the things and documents. Time allows you to take a shower and have a light meal. Continue timing contractions. If the hospital is far away or this is not your first baby, you may be better off going to the hospital right now. In addition, we recommend that you consult you doctor.",
-                              subDescription: "Average duration of contractions as 1 minute 10 seconds, average frequency is 8 minutes 24 seconds correspond to the initial phase of the first stage of labor."
+                        PopUp(icon: "baby", title: "Get_Ready".localized,
+                              description:  "Get_Ready_Desc".localized,
+                              subDescription: "Get_Ready_SubDesc".localized
                         )
                         {
                             constants.popUpCover = nil
                         }
                     }
                     if constants.popUpCover == .gotoHospital {
-                        PopUp(icon: "hospital", title: "Go to the hospital",
-                              description:  "Call an ambulance or use other transportation and make sure to bring the items and documents you will need during your hospital stay. In addition, we recommend that you consult you doctor.",
-                              subDescription: "Average duration of contractions 42 seconds, average frequency is 5 minutes 2 seconds correspond to the activve phase of the labor."
+                        PopUp(icon: "hospital", title: "Go_Hospital".localized,
+                              description:  "Go_Hospital_Desc".localized,
+                              subDescription: "Go_Hospital_SubDesc".localized
                         )
                         {
                             constants.popUpCover = nil

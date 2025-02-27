@@ -16,9 +16,3 @@ struct PdfActivityView: UIViewControllerRepresentable {
 
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
-
-struct ContentView: View {
-    var body: some View {
-        PDFView()
-    }
-}

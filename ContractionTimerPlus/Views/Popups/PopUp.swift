@@ -50,6 +50,7 @@ struct PopUp: View {
                     
                     Text(description.localized)
                         .font(.custom("Poppins-Medium", size: 14))
+                        .foregroundColor(.black)
                         .multilineTextAlignment(.center)
 
 
