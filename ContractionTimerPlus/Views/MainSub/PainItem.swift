@@ -17,17 +17,12 @@ struct PainItem : View {
     var body: some View {
         ZStack
         {
-            HStack(alignment: .bottom, spacing: 30)
+            HStack(alignment: .bottom, spacing: 15)
             {
-                /*
-                Text("\(pain.processNo)")
-                    .font(.custom("Poppins-Medium", size: 16))
-                    .foregroundColor(.black)
-                */
                 Text(pain.processStartTime.formatted(date: .omitted, time: .shortened))
-                    .font(.custom("Poppins-Medium", size: 16))
+                    .font(.custom("Poppins-Medium", size: 19))
                     .foregroundColor(.d9)
-                    .frame(width: 40, alignment: .leading)
+                    .frame(width: 50, alignment: .leading)
                     .lineLimit(nil)
                     .fixedSize(horizontal: true, vertical: false)
                 
@@ -48,7 +43,7 @@ struct PainItem : View {
                         Rectangle()
                             .fill(Color.orange) // Arka plan için opsiyonel renk
                             .frame(minWidth: 10, maxWidth: 10, maxHeight: .infinity)
-                            .offset(y: -10)
+                            .offset(y: -5)
                     }
                     
                     Circle()
@@ -64,9 +59,13 @@ struct PainItem : View {
                                     .stroke(isLastInserted() ? Color.orange : Color.clear, lineWidth: 5)
                                     .padding(1) // Kenarlığı içeriye almak için
                             )
-                    Text("\(pain.processNo)")
+                    
+                    /*
+                    //Circlenin üzerine process no yazar...
+                    Text(String("\(pain.processNo)"))
                         .font(.custom("Poppins-Medium", size: 16)  )
                         .foregroundColor(.black)
+                     */
                 }
                 .frame(height: 70)
                 
@@ -76,7 +75,7 @@ struct PainItem : View {
                         .fontWeight(Font.Weight.medium)
                         .foregroundColor(.black)
                         .lineLimit(0)
-                        .frame(width: 70, alignment: .leading)
+                        .frame(width: 90, alignment: .leading)
                     
                     IntensityItem(intensity: pain.painIntensity ?? 0)
                         .padding(.bottom, 20)
@@ -84,7 +83,6 @@ struct PainItem : View {
                 }
             }
             .frame(maxWidth: .infinity)
-            .padding(0)
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .onAppear {

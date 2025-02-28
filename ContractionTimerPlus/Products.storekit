@@ -143,6 +143,72 @@
           "winbackOffers" : [
 
           ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "9.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "33864536",
+          "introductoryOffer" : {
+            "displayPrice" : "0.99",
+            "internalID" : "8627FF2F",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P3D"
+          },
+          "localizations" : [
+            {
+              "description" : "",
+              "displayName" : "",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.trn.contractionsTimer.monthly3dayfree",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Monthly3DaysFree",
+          "subscriptionGroupID" : "A55F5EB9",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "2.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "8F75EC00",
+          "introductoryOffer" : {
+            "displayPrice" : "0.99",
+            "internalID" : "7CE5FEB2",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P3D"
+          },
+          "localizations" : [
+            {
+              "description" : "",
+              "displayName" : "",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.trn.contractionsTimer.weekly3dayfree",
+          "recurringSubscriptionPeriod" : "P1W",
+          "referenceName" : "Weekly3DaysFree",
+          "subscriptionGroupID" : "A55F5EB9",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
         }
       ]
     }

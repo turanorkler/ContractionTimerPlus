@@ -22,7 +22,7 @@ struct StartView: View {
                 .padding(.top, 40)
             
             
-            Text("If your water breaks or significant bleeding occurs, go to the hospital".localized)
+            Text("If_your_water".localized)
                 .font(.custom("Poppins-Light", size: 15))
                 .foregroundColor(.alarmred)
                 .multilineTextAlignment(.center)
@@ -32,7 +32,7 @@ struct StartView: View {
                 .cornerRadius(15)
                 .padding(.top, 20)
             
-            Text("Time several contractions and the aplication will let you know whether it’s time to go to the hospital".localized)
+            Text("Time_several_contractions".localized)
                 .font(.custom("Poppins-Light", size: 15))
                 .foregroundColor(.warninggreen)
                 .multilineTextAlignment(.center)
@@ -45,8 +45,7 @@ struct StartView: View {
             }) {
                 Text("Start".localized)
                     .padding(10)
-                    .font(.custom("Poppins-Light", size: 17))
-                    .fontWeight(.thin)
+                    .font(.custom("Poppins-Medium", size: 17))
                     .foregroundColor(.black)
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity)

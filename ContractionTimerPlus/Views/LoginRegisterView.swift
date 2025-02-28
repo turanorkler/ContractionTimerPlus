@@ -76,7 +76,7 @@ struct LoginRegisterView: View {
                     isMenuOpen.toggle() // Popover'ı aç/kapat
                 }) {
                     HStack {
-                        Text("\(selectedFlag) \(selectedLanguage)")
+                        Text(String("\(selectedFlag) \(selectedLanguage)"))
                             .font(.custom("Poppins-Medium", size: 15))
                             .bold()
                             .foregroundColor(.black)
@@ -93,26 +93,26 @@ struct LoginRegisterView: View {
                 }
                 
                 // E-posta Alanı
-                Text("E-Mail".localized)
+                Text("email".localized)
                     .font(.custom("Poppins-Medium", size: 15))
                     .foregroundColor(.black)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                TextField("E-Mail".localized, text: $email)
+                TextField("email".localized, text: $email)
                     .font(.custom("Poppins-Medium", size: 15))
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 10).stroke(Color.black, lineWidth: 1))
                     .keyboardType(.emailAddress)
                     .foregroundColor(.black)
                 
-                Text("Password".localized)
+                Text("password".localized)
                     .font(.custom("Poppins-Medium", size: 15))
                     .foregroundColor(.black)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                SecureField("Password".localized, text: $password)
+                SecureField("password".localized, text: $password)
                     .font(.custom("Poppins-Medium", size: 15))
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 10).stroke(Color.black, lineWidth: 1))
@@ -123,7 +123,7 @@ struct LoginRegisterView: View {
                 
                 NavigationLink(destination: MainView())
                 {
-                    Text("Sign Up".localized)
+                    Text("Sign_Up".localized)
                         .font(.custom("Poppins-Medium", size: 17))
                         .bold()
                         .frame(maxWidth: .infinity, minHeight: 50)
@@ -156,7 +156,7 @@ struct LoginRegisterView: View {
                                 isMenuOpen = false // Seçim yapıldığında popover'ı kapat
                             }) {
                                 HStack {
-                                    Text("\(flag) \(language)")
+                                    Text(String("\(flag) \(language)"))
                                         .font(.custom("Poppins-Medium", size: 15))
                                         .foregroundColor(.black)
                                     Spacer()

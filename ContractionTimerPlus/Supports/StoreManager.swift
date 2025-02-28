@@ -18,7 +18,7 @@ class StoreManager: ObservableObject {
     @Published var isSubscriptionActive = false
     @Published var showPaywall = false // Paywall'ı göstermek için
     
-    let productIDs = ["com.trn.contractionsTimer.weeklynew", "com.trn.contractionsTimer.yearly"]
+    let productIDs = ["com.trn.contractionsTimer.weeklynew", "com.trn.contractionsTimer.monthly", "com.trn.contractionsTimer.monthly3dayfree", "com.trn.contractionsTimer.weekly3dayfree"]
     
     init() {
         Task {
@@ -35,6 +35,10 @@ class StoreManager: ObservableObject {
         } catch {
             print("Ürünler yüklenirken hata oluştu: \(error)")
         }
+    }
+    
+    func getProductInfo(productID: String) -> Product? {
+        return products.first(where: { $0.id == productID })
     }
     
     // Satın alma işlemi

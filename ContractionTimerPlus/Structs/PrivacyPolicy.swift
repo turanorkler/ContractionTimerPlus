@@ -18,12 +18,12 @@ struct PrivacyPolicy: View {
         HStack(alignment: .center)
         {
             Button(action: {
-                if let url = URL(string: "https://www.privacypolicy.com") {
+                if let url = URL(string: "https://contraction-timer.blogspot.com/p/privacy-policy.html") {
                     UIApplication.shared.open(url)
                 }
             })
             {
-                Text("Privacy Policy".localized)
+                Text("Privacy_Policy".localized)
                     .font(.custom("Poppins-Medium", size: 12))
                     .foregroundColor(color)
             }
@@ -33,12 +33,12 @@ struct PrivacyPolicy: View {
                 .background(color)
             
             Button(action: {
-                if let url = URL(string: "https://www.termsofuse.com") {
+                if let url = URL(string: "https://contraction-timer.blogspot.com/p/terms-of-use.html") {
                     UIApplication.shared.open(url)
                 }
             })
             {
-                Text("Terms of Use".localized)
+                Text("Terms_of_Use".localized)
                     .font(.custom("Poppins-Medium", size: 12))
                     .foregroundColor(color)
             }

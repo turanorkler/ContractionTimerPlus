@@ -1,30 +1,16 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%@" : {
-
-    },
-    "%@ %@" : {
+    "Add_Contact" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ %2$@"
+            "state" : "translated",
+            "value" : "Add Contact"
           }
         }
       }
-    },
-    "%lld" : {
-
-    },
-    "📞 %@" : {
-
-    },
-    "📧 %@" : {
-
-    },
-    "Add Contact" : {
-
     },
     "Add_Contractions" : {
       "extractionState" : "manual",
@@ -33,6 +19,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add Contractions"
+          }
+        }
+      }
+    },
+    "app_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contraction \nTimer Plus +"
+          }
+        }
+      }
+    },
+    "are_you_deleted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure all Records will be deleted?"
           }
         }
       }
@@ -116,6 +124,17 @@
         }
       }
     },
+    "Cancel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
     "Contact_List" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -128,10 +147,36 @@
       }
     },
     "Contacts" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contacts"
+          }
+        }
+      }
     },
-    "Contraction \nTimer Plus +" : {
-
+    "Contraction_Started" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contraction Started"
+          }
+        }
+      }
+    },
+    "Contraction_Stopped" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contraction Stopped"
+          }
+        }
+      }
     },
     "Contraction_timer_is_not_just" : {
       "extractionState" : "manual",
@@ -139,7 +184,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Contraction timer is not just a regular \\ntimer. It is also a tool for recording and \\ncommunicating!"
+            "value" : "Contraction timer is not just a regular timer. It is also a tool for recording and communicating!"
           }
         }
       }
@@ -171,15 +216,24 @@
         }
       }
     },
-    "Delete all contractions" : {
-
-    },
-    "E-mail" : {
+    "Delete_all_contractions" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "E-Mail"
+            "value" : "Delete all contractions"
+          }
+        }
+      }
+    },
+    "duration" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duration"
           }
         }
       }
@@ -190,6 +244,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Easy"
+          }
+        }
+      }
+    },
+    "Edit_Contact" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Contact"
+          }
+        }
+      }
+    },
+    "email" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-Mail"
           }
         }
       }
@@ -207,6 +283,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Acil Çağrı"
+          }
+        }
+      }
+    },
+    "frequency" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frequency"
           }
         }
       }
@@ -255,7 +342,7 @@
         }
       }
     },
-    "gift for you!" : {
+    "gift_for_you" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -299,6 +386,17 @@
         }
       }
     },
+    "If_your_water" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If your water breaks or significant bleeding occurs, go to the hospital"
+          }
+        }
+      }
+    },
     "Language_Change" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -322,16 +420,46 @@
       }
     },
     "Medium" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medium"
+          }
+        }
+      }
+    },
+    "membership_not_act_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can use this feature when your membership is active."
+          }
+        }
+      }
     },
     "Name" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
     },
-    "Name *" : {
-
-    },
-    "No contacts yet" : {
-
+    "Name_Star" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name *"
+          }
+        }
+      }
     },
     "No_Ads" : {
       "extractionState" : "manual",
@@ -344,8 +472,48 @@
         }
       }
     },
+    "No_contacts_yet" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No contacts yet"
+          }
+        }
+      }
+    },
+    "Ok" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ok"
+          }
+        }
+      }
+    },
     "Painful" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Painful"
+          }
+        }
+      }
+    },
+    "password" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password"
+          }
+        }
+      }
     },
     "paywall_1" : {
       "extractionState" : "manual",
@@ -391,8 +559,16 @@
         }
       }
     },
-    "Phone" : {
-
+    "phone" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phone"
+          }
+        }
+      }
     },
     "premium_3day_try" : {
       "extractionState" : "manual",
@@ -422,7 +598,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Get premium now with only $9.99/monthly"
+            "value" : "Get premium now with only monthly/%@"
           }
         }
       }
@@ -433,15 +609,56 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Get premium now with only $2.99/weekly"
+            "value" : "Get premium now with only weekly/%@"
           }
         }
       }
     },
-    "Report" : {
-
+    "Privacy_Policy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy Policy"
+          }
+        }
+      }
     },
-    "Restore_Purchases" : {
+    "Remove_All" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove All"
+          }
+        }
+      }
+    },
+    "report" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report"
+          }
+        }
+      }
+    },
+    "Restore_Purchase" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore Purchase"
+          }
+        }
+      }
+    },
+    "Restore_purchases" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -453,7 +670,14 @@
       }
     },
     "Rough" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rough"
+          }
+        }
+      }
     },
     "Settings" : {
       "localizations" : {
@@ -482,8 +706,59 @@
         }
       }
     },
+    "Sign_Up" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Up"
+          }
+        }
+      }
+    },
     "Slight" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Slight"
+          }
+        }
+      }
+    },
+    "Subscription_Control" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscription Control"
+          }
+        }
+      }
+    },
+    "Subscription_is_active" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscription is active"
+          }
+        }
+      }
+    },
+    "Subscription_no" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscription no"
+          }
+        }
+      }
     },
     "Support" : {
       "extractionState" : "manual",
@@ -506,8 +781,30 @@
         }
       }
     },
-    "Unlock" : {
-      "extractionState" : "stale",
+    "Terms_of_Use" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms of Use"
+          }
+        }
+      }
+    },
+    "Time_several_contractions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time several contractions and the aplication will let you know whether it’s time to go to the hospital"
+          }
+        }
+      }
+    },
+    "unlock" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -538,7 +835,8 @@
         }
       }
     },
-    "Update Contact" : {
+    "Update_Contact" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -548,7 +846,8 @@
         }
       }
     },
-    "Urgent" : {
+    "urgent" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -576,6 +875,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "We have a special"
+          }
+        }
+      }
+    },
+    "Weekly" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weekly"
           }
         }
       }

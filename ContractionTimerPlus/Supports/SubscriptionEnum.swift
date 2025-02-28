@@ -6,5 +6,5 @@
 //
 
 enum SubscriptionEnum {
-    case monthly, yearly
+    case weekly, monthly, yearly
 }

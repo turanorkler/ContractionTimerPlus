@@ -58,20 +58,20 @@ struct Paywall1View : View
                 
                 Spacer()
                 
-                Text("premium_monthly".localized)
-                    .font(.custom("Poppins-Medium", size: 15))
-                    .foregroundColor(.black)
-                
-                CustomButton(buttonText: "premium_3day_try".localized, action: {
-                    if let fetchedProduct = storeManager.products
-                                .first(where: { $0.id == storeManager.productIDs[0] })
-                    {
+                if let product = storeManager.getProductInfo(productID: storeManager.productIDs[2])
+                {
+                    Text(String(format: NSLocalizedString("premium_monthly".localized, comment: ""),
+                                    product.priceFormatted))
+                            .font(.custom("Poppins-Medium", size: 15))
+                            .foregroundColor(.black)
+                    
+                    CustomButton(buttonText: "premium_3day_try".localized, action: {
                         Task {
-                            try await storeManager.purchase(fetchedProduct)
+                            try await storeManager.purchase(product)
                         }
-                    }
-                })
-                .padding(.top, 10)
+                    })
+                    .padding(.top, 10)
+                }
                 
                 PrivacyPolicy(color: .black)
 

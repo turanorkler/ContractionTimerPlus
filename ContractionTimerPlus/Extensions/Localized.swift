@@ -15,10 +15,23 @@ extension String {
               let bundle = Bundle(path: path) else {
             return self
         }
-        return NSLocalizedString(self, bundle: bundle, comment: "")
+        let translatedString = NSLocalizedString(self, bundle: bundle, comment: "")
+        return translatedString.replacingOccurrences(of: "\\n", with: "\n")
     }
 }
 
+/*
+extension String {
+    var localized: String {
+        let languageCode = LanguageManager.shared.selectedLanguage
+        guard let path = Bundle.main.path(forResource: languageCode, ofType: "lproj"),
+              let bundle = Bundle(path: path) else {
+            return self
+        }
+        return NSLocalizedString(self, bundle: bundle, comment: "")
+    }
+}
+*/
 
 /*
 extension String {

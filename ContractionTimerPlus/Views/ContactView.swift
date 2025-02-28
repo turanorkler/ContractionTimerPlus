@@ -37,7 +37,7 @@ struct ContactView: View {
                             .frame(width: 300, height: 300)
                             .padding()
                         
-                        Text("No contacts yet")
+                        Text("No_contacts_yet".localized)
                             .font(.custom("Poppins-Medium", size: 18))
                             .foregroundColor(.black)
                         
@@ -47,7 +47,7 @@ struct ContactView: View {
                             constants.popUpCover = .addContact
                         })
                         {
-                            Text(viewModel.selectedContact == nil ? "Add Contact" : "Update Contact")
+                            Text(viewModel.selectedContact == nil ? "Add_Contact".localized : "Update_Contact".localized)
                                 .frame(maxWidth: .infinity)
                                 .padding()
                                 .background(.greenradial)
@@ -174,13 +174,13 @@ struct ContactRow: View {
                     .foregroundColor(.black)
                     
                 if let mail = contact.email, !mail.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                    Text("📧 \(mail)")
+                    Text(String("📧 \(mail)"))
                         .font(.custom("Poppins-Medium", size: 12))
                         .foregroundColor(.darkgray)
                 }
 
                 if let phone = contact.phone, !phone.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                    Text("📞 \(phone)")
+                    Text(String("📞 \(phone)"))
                         .font(.custom("Poppins-Medium", size: 12))
                 }
             }

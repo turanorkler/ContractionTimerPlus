@@ -44,11 +44,20 @@ struct GeneralButton: View {
                     )
                     .frame(width: 100, height: 100)
                 
-                Text("\(isActive ? "Contraction \nStopped" : "Contraction \nStart")")
-                    .font(.custom("Poppins-Medium", size: 14))
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-                    .padding(.top, 10)
+                if isActive {
+                    Text("Contraction_Stopped".localized)
+                        .font(.custom("Poppins-Medium", size: 14))
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                        .padding(.top, 10)
+                } else {
+                    Text("Contraction_Started".localized)
+                        .font(.custom("Poppins-Medium", size: 14))
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                        .padding(.top, 10)
+                }
+                
             }
         }
     }

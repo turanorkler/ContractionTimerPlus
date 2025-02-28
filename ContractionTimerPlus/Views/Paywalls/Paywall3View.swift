@@ -9,6 +9,7 @@ import SwiftUI
 struct Paywall3View : View
 {
     @ObservedObject var constants = Constants.shared
+    @ObservedObject var storeManager = StoreManager.shared
     
     @State private var selectedSub: SubscriptionEnum = .monthly
     
@@ -61,14 +62,20 @@ struct Paywall3View : View
                 
                 Spacer()
                 
-                Text("premium_weekly".localized)
+                if let product = storeManager.getProductInfo(productID: storeManager.productIDs[3])
+                {
+                    Text(String(format: NSLocalizedString("premium_weekly".localized, comment: ""),
+                                product.priceFormatted))
                     .font(.custom("Poppins-Medium", size: 15))
                     .foregroundColor(.white)
-                
-                CustomButton2(buttonText: "premium_3day_try", action: {
                     
-                })
-                .padding(.top, 10)
+                    CustomButton2(buttonText: "premium_3day_try".localized, action: {
+                        Task {
+                            try await storeManager.purchase(product)
+                        }
+                    })
+                    .padding(.top, 10)
+                }
                 
                 PrivacyPolicy(color: .white)
 

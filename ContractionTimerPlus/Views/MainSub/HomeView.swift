@@ -12,9 +12,13 @@ struct HomeView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var pdfData: PDFWrapper?
     @ObservedObject var constants = Constants.shared
+    @ObservedObject var storeManager = StoreManager.shared
+    
     @EnvironmentObject var viewModel: MainViewModel
     @State private var scrollProxy: ScrollViewProxy?
     @State var generalActive = false
+    
+    @State var noPayment = false
     
     var sortedPainLists: [PainIntensity] {
         viewModel.painLists.sorted(by: { $0.processNo > $1.processNo }) // Büyükten küçüğe sırala
@@ -30,7 +34,7 @@ struct HomeView: View {
                     Text("Last".localized + " \(viewModel.lastPainDate)")
                         .lineLimit(nil)
                         .fixedSize(horizontal: false, vertical: true)
-                    Text("Contractions ".localized + " \(viewModel.contractionCount)")
+                    Text("Contractions".localized + " \(viewModel.contractionCount)")
                         .lineLimit(nil)
                         .fixedSize(horizontal: true, vertical: true)
                 }
@@ -75,25 +79,24 @@ struct HomeView: View {
             .frame(maxWidth: .infinity)
             .background(Color.headerbg)
             .cornerRadius(15)
-            .padding(.horizontal, 35)
+            .padding(.horizontal, 20)
             
             HStack
             {
-                Text("Duration".localized)
+                Text("duration".localized)
                 Spacer()
-                Text("Frequency".localized)
+                Text("frequency".localized)
                 
             }
             .font(.custom("Poppins-Medium", size: 13))
             .foregroundColor(.black)
-            .padding()
             .frame(maxWidth: .infinity)
-            .padding(.horizontal, 35)
-        
+            .padding(.horizontal, 25)
+            .padding(.vertical, 5)
             
             ScrollViewReader { proxy in
                 ScrollView {
-                    LazyVStack(spacing: 5) {
+                    LazyVStack(spacing: 0) {
                         //ForEach(viewModel.painLists.indices, id: \.self) { index in
                         //ForEach(sortedPainLists, id: \.self) { index in
                         ForEach(sortedPainLists, id: \.processNo) { pain in
@@ -108,7 +111,8 @@ struct HomeView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             }
-            .padding()
+            .padding(.horizontal, 25)
+            
 
             
             GeneralButton(isActive: generalActive)
@@ -123,12 +127,24 @@ struct HomeView: View {
                     viewModel.addProcess(modelContext: modelContext)
                 }
                 
+                if let firstPain = sortedPainLists.first {
+                    scrollProxy?.scrollTo(firstPain.processNo, anchor: .top)
+                }
             }
             
             HStack {
                 
                 Button(action: {
-                    viewModel.loadPaingList(modelContext: modelContext)
+                    
+                    //burada kişilere pdf dosyasını gönderiyoruz...
+                    if storeManager.isSubscriptionActive {
+                        let repData = viewModel.getRapor()
+                        let generatedPDF = PDFCreator(painData: repData, title: "aaaa", subtitle: "bbb").createPDF()
+                        pdfData = PDFWrapper(data: generatedPDF)
+                    } else {
+                        noPayment = true
+                    }
+                    
                 }) {
                     HStack {
                         Image(systemName: "envelope")
@@ -138,15 +154,17 @@ struct HomeView: View {
                             .font(.custom("Poppins-Medium", size: 13))
                     }
                     .padding(10)
-                    .background(.sharecontraction.opacity(0.2))
                     .cornerRadius(10)
                 }
                 
                 Button(action: {
-                    //viewModel.loadPaingList2(modelContext: modelContext)
-                    let repData = viewModel.getRapor()
-                    let generatedPDF = PDFCreator(painData: repData, title: "aaaa", subtitle: "bbb").createPDF()
-                    pdfData = PDFWrapper(data: generatedPDF)
+                    //burada acil kişilerini filtreleyip mail ve/veya mesaj yada göndereceğiz...
+                    if storeManager.isSubscriptionActive {
+                        
+                        
+                    } else {
+                        noPayment = true
+                    }
                     
                 }) {
                     HStack {
@@ -169,6 +187,12 @@ struct HomeView: View {
         .padding(.all, 20)
         .sheet(item: $pdfData) { pdf in
             PdfActivityView(activityItems: [pdf.data]) // İçindeki `Data`'yı alıyoruz
+        }
+        .alert(isPresented: $noPayment) {
+            Alert(title: Text("Subscription_Control".localized),
+                  message:
+                    Text("membership_not_act_desc".localized),
+                  dismissButton: .default(Text("Ok".localized)))
         }
         .overlay {
             Group {

@@ -11,6 +11,7 @@ import SwiftUI
 class InterstitialAdManager: NSObject, FullScreenContentDelegate, ObservableObject {
     @Published var isAdReady = false
     private var interstitial: InterstitialAd?
+    
     private let adUnitID = "/ca-app-pub-3940256099942544/1033173712" // Google Ad Manager Test ID
 
     override init() {

@@ -60,11 +60,11 @@ struct SettingsView: View {
                     HStack {
                         
                         VStack(alignment: .leading, spacing: 13) {
-                            Text("Unlock all the features".localized)
+                            Text("Unlock_all_the_features".localized)
                                 .font(.custom("Poppins-Medium", size: 14))
                                 .foregroundColor(.black)
                             
-                            Text("Contraction \nTimer Plus +")
+                            Text("app_name".localized)
                                 .font(.custom("DMSerifDisplay-Regular", size: 22))
                                 .foregroundColor(.black)
                             
@@ -75,7 +75,7 @@ struct SettingsView: View {
                                     Image(systemName: "lock")
                                         .foregroundColor(.white)
                                     
-                                    Text("Unlock".localized)
+                                    Text("unlock".localized)
                                         .font(.custom("Poppins-Medium", size: 15))
                                         .foregroundColor(.white)
                                     
@@ -151,7 +151,7 @@ struct SettingsView: View {
                         HStack {
                             Image(systemName: "trash")
                                 .foregroundColor(.alarmred)
-                            Text("Delete all contractions")
+                            Text("Delete_all_contractions".localized)
                                 .font(.custom("Poppins-Medium", size: 15))
                                 .foregroundColor(.alarmred)
                             
@@ -176,20 +176,21 @@ struct SettingsView: View {
                 //.presentationDetents([.medium])
                 .presentationDetents([.fraction(0.42)])
         }
-        .alert("Are you sure all Records will be deleted?".localized, isPresented: $showDeleteAlert) {
+        .alert("are_you_deleted".localized, isPresented: $showDeleteAlert) {
             Button("Cancel".localized, role: .cancel) {
                 showDeleteAlert = false
             } // Kullanıcı iptal edebilir
-            Button("Remove All".localized, role: .destructive) {
+            Button("Remove_All".localized, role: .destructive) {
                 //bu kişileri değil sadece maindeki veri girişlerini silecek...
                 viewModel.deleteAllProcesses(modelContext: modelContext)
                 showDeleteAlert = false
             }
         }
         .alert(isPresented: $showRestoreAlert) {
-            Alert(title: Text("Subscription Control".localized),
+            Alert(title: Text("Subscription_Control".localized),
                   message:
-                    Text(storeManager.isSubscriptionActive ? "Subscription is active!".localized : "Subscription no".localized),
+                    Text(storeManager.isSubscriptionActive ?
+                         "Subscription_is_active".localized : "Subscription_no".localized),
                   dismissButton: .default(Text("Ok".localized)))
         }
     }

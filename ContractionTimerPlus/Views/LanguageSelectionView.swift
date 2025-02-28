@@ -52,7 +52,7 @@ struct LanguageSelectionView: View {
                                 .tint(lang == lm.selectedLanguage ? .green : .gray)
                         
                         
-                        Text("\(flag) \(language)")
+                        Text(String("\(flag) \(language)"))
                             .font(.custom("Poppins-Medium", size: 18))
                             .foregroundColor(.black)
                         Spacer()
