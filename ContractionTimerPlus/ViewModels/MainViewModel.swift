@@ -68,14 +68,30 @@ class MainViewModel: ObservableObject {
     
     func updateProcess(modelContext: ModelContext, newPainIntensity: Int) {
         Task {
-            //let count = painLists.count + 1
             lastInsertedProcess?.painIntensity = newPainIntensity
-            //lastInsertedProcess?.processNo = count
-            
             do {
                 if lastInsertedProcess != nil {
+                    
+                    
                     modelContext.insert(lastInsertedProcess!)
                     try modelContext.save()
+                    
+                    DispatchQueue.main.async {
+                        
+                    }
+                    
+                    let averageFrequency = alarm(hour: -1)
+                    
+                    if averageFrequency == 0.5 {
+                        DispatchQueue.main.async {
+                            Constants.shared.popUpCover = .getReady
+                        }
+                    } else if averageFrequency == 1.0 {
+                        DispatchQueue.main.async {
+                            Constants.shared.popUpCover = .gotoHospital
+                        }
+                    }
+                    
                     print("✅ Kayıt başarıyla güncellendi: \(String(describing: lastInsertedProcess?.painIntensity))")
                 }
             } catch {
@@ -83,6 +99,55 @@ class MainViewModel: ObservableObject {
             }
 
             print("🔍 Güncellenen Kayıt Sonrası -> processNo: \(String(describing: lastInsertedProcess?.processNo)), painIntensity: \(String(describing: lastInsertedProcess?.painIntensity))")
+        }
+    }
+    
+    func alarm(hour: Int = -2) -> Double {
+        let lastHour = Calendar.current.date(byAdding: .hour, value: hour, to: Date())!
+
+        // 1. Son X saat içindeki sancıları filtrele (bitmiş ve şiddeti 1-5 arası olanlar)
+        let filteredPainLists = painLists.filter { process in
+            if let endTime = process.processEndTime,
+               let intensity = process.painIntensity, // Nil kontrolü
+               intensity >= 1, intensity <= 5 { // Şiddet 1 ile 5 arasında olmalı
+                return endTime >= lastHour
+            }
+            return false
+        }.sorted { $0.processStartTime < $1.processStartTime } // İşlemleri zamana göre sırala
+
+        var totalFrequency: TimeInterval = 0
+        var frequencyCount: Int = 0
+
+        // 2. Sancı sıklığını hesapla
+        for index in 1..<filteredPainLists.count {
+            let currentItem = filteredPainLists[index]
+            let previousItem = filteredPainLists[index - 1]
+
+            if let prevEndTime = previousItem.processEndTime { // processEndTime nil kontrolü
+                let frequency = currentItem.processStartTime.timeIntervalSince(prevEndTime)
+
+                if frequency > 0 { // Negatif değerleri hariç tut
+                    totalFrequency += frequency
+                    frequencyCount += 1
+                }
+            }
+        }
+
+        let averageFrequency = frequencyCount > 0 ? totalFrequency / Double(frequencyCount) : 0
+        let averageFrequencyInMinutes = averageFrequency / 60 // Saniyeyi dakikaya çevir
+
+        print("Son \(abs(hour)) saat içindeki işlemlerin ortalama frekansı (dakika): \(Int(averageFrequencyInMinutes))")
+
+        // 3. Risk değerlendirmesi ve alarm durumu
+        if averageFrequencyInMinutes <= 5 {
+            print("🚨 ACİL: Doğum başlıyor olabilir! Hemen doktora gidin!")
+            return 1.0 // Yüksek risk
+        } else if averageFrequencyInMinutes <= 10 {
+            print("⚠️ Dikkat: Doğum yaklaşıyor, hastaneye hazırlanın.")
+            return 0.5 // Orta risk
+        } else {
+            print("✅ Normal: Henüz doğum sancıları düzenli değil.")
+            return 0.0 // Düşük risk
         }
     }
 
@@ -98,7 +163,8 @@ class MainViewModel: ObservableObject {
                 
                 print("✅ Çekilen kayıtlar: \(results.count)")
                 for record in results {
-                    print("📌 processNo: \(record.processNo), StartTime: \(record.processStartTime)")
+                    print("📌 processNo: \(record.processNo), StartTime: \(record.processStartTime), EndTime: \(record.processEndTime!)")
+                    
                 }
 
                 DispatchQueue.main.async {
@@ -168,9 +234,6 @@ class MainViewModel: ObservableObject {
         
     }
 
-
-
-
     
     func getRapor() -> [ReportData] {
         
@@ -197,16 +260,6 @@ class MainViewModel: ObservableObject {
         
         return newReportList
     }
-
-    /*
-    func getRapor()
-    {
-        //ReportData(processNo: 1, processStartTime: now, processEndTime: Calendar.current.date(byAdding: .minute, value: 20, to: now))
-        painLists.forEach { (item) in
-            item.
-        }
-    }
-    */
     
     //geçici bir fonksiyon
     func loadPaingList2(modelContext: ModelContext) {

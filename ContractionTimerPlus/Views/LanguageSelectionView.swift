@@ -34,35 +34,41 @@ struct LanguageSelectionView: View {
                 .tint(.black)
                     
             }
-            .padding()
+            .padding(.top, 50)
+            .padding(.horizontal, 20)
             
-            ForEach(constants.languages, id: \.1) { flag, language, lang in
-                Button(action: {
-                    //selectedLanguage = language
-                    //selectedFlag = flag
-                    lm.changeLanguage(to: lang)
+            VStack(spacing: 0)
+            {
+                ForEach(constants.languages, id: \.1) { flag, language, lang in
                     
-                }) {
-                    HStack {
+                    Button(action: {
+                        //selectedLanguage = language
+                        //selectedFlag = flag
+                        lm.changeLanguage(to: lang)
                         
+                    }) {
+                        HStack {
                         
-                        Image(systemName: "checkmark.circle")
-                            .resizable()
-                            .frame(width: 20, height: 20)
+                            Image(systemName: "checkmark.circle")
+                                .resizable()
+                                .frame(width: 20, height: 20)
                                 .tint(lang == lm.selectedLanguage ? .green : .gray)
-                        
-                        
-                        Text(String("\(flag) \(language)"))
-                            .font(.custom("Poppins-Medium", size: 18))
-                            .foregroundColor(.black)
-                        Spacer()
+                            
+                            
+                            Text(String("\(flag) \(language)"))
+                                .font(.custom("Poppins-Medium", size: 16))
+                                .foregroundColor(.black)
+                            Spacer()
+                        }
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 10)
                     }
-                    .padding(.horizontal, 10)
-                    .padding(.top, 5)
+                    Divider() // Her öğe arasına çizgi
+                        .background(Color.black)
+                    
                 }
-                Divider() // Her öğe arasına çizgi
-                    .background(Color.black)
             }
+            .padding()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.white)

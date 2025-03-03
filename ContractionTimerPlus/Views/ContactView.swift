@@ -12,6 +12,8 @@ import Foundation
 
 struct ContactView: View {
     
+    @ObservedObject var admob = InterstitialAdManager.shared
+    @StateObject private var storeManager = StoreManager.shared
     @Environment(\.modelContext) private var modelContext
 
     @Environment(\.dismiss) var dismiss
@@ -72,7 +74,11 @@ struct ContactView: View {
                 //let storeURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
                 //print("📁 SwiftData DB Konumu: \(storeURL?.path ?? "Bulunamadı!")")
                 viewModel.loadContacts(modelContext: modelContext)
+                if storeManager.isSubscriptionActive == false {
+                    admob.showInterstitialAd()
+                }
             }
+            
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .overlay {
                 if constants.popUpCover == .addContact {
@@ -179,10 +185,12 @@ struct ContactRow: View {
                         .foregroundColor(.darkgray)
                 }
 
+                /*
                 if let phone = contact.phone, !phone.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                     Text(String("📞 \(phone)"))
                         .font(.custom("Poppins-Medium", size: 12))
                 }
+                 */
             }
             
             Spacer()

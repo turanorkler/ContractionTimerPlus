@@ -18,7 +18,7 @@ struct GeneralButton: View {
             ZStack {
                 Circle()
                     .fill(.grayf3)
-                    .frame(width: 120, height: 120)
+                    .frame(width: 110, height: 110)
                 
                 Circle()
                     .fill(

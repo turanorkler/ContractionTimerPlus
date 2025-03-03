@@ -7,10 +7,11 @@
 
 import Foundation
 import Combine
+import UIKit
 
 class Constants: ObservableObject {
     static let shared = Constants()
-    //@Published var username: String = "Misafir"
+    
     @Published var isPay : Bool = true
     
     @Published var fullScreenCover : FullScreenEnum? = nil
@@ -45,11 +46,15 @@ class Constants: ObservableObject {
     }
 
     let languages = [
-        ("🇺🇸", "English - US", "en"),
-        ("🇪🇸", "Spanish - ES", "es"),
-        ("🇹🇷", "Turkish - TR", "tr"),
-        ("🇷🇺", "Russian - RU", "ru"),
-        ("🇸🇦", "Arabic - AR", "ar")
+        ("🇺🇸", "English", "en"),
+        ("🇫🇷", "France", "fr"),
+        ("🇩🇪", "German", "de"),
+        ("🇪🇸", "Spanish", "es"),
+        ("🇹🇷", "Turkish", "tr"),
+        ("🇷🇺", "Russian", "ru"),
+        ("🇯🇵", "Japan", "ja"),
+        ("🇨🇳", "Chinese", "zh"),
+        ("🇸🇦", "Arabic", "ar")
     ]
     
     let paywallMessages = [
@@ -59,6 +64,30 @@ class Constants: ObservableObject {
         "paywall_4"
     ]
     
+    func sendEmail(subject: String, body: String, emailRecipients: [String] = [])
+    {
+        if emailRecipients.count <= 0 { return }
+        
+        let recipients = emailRecipients.joined(separator: ",")
+        let mailURL = "mailto:\(recipients)?subject=\(subject)&body=\(body)"
+        
+        if let encodedURL = mailURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+           let url = URL(string: encodedURL) {
+            UIApplication.shared.open(url)
+        }
+    }
     
+    func sendSMS(message: String, smsRecipients: [String] = [])
+    {
+        if smsRecipients.count <= 0 { return }
+        let recipients = smsRecipients.joined(separator: ",")
+        
+        let smsURL = "sms:\(recipients)&body=\(message)"
+        
+        if let encodedURL = smsURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+           let url = URL(string: encodedURL) {
+            UIApplication.shared.open(url)
+        }
+    }
 }
 

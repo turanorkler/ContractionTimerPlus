@@ -11,6 +11,33 @@ import SwiftUI
 extension String {
     var localized: String {
         let languageCode = LanguageManager.shared.selectedLanguage
+
+        guard let path = Bundle.main.path(forResource: languageCode, ofType: "lproj"),
+              let bundle = Bundle(path: path) else {
+            return self
+        }
+        
+        let translatedString = NSLocalizedString(self, bundle: bundle, comment: "")
+        
+        // Eğer çeviri bulunamazsa veya "dont translate" modundaysa varsayılan dili kullan
+        if translatedString == self {
+            guard let defaultPath = Bundle.main.path(forResource: "en", ofType: "lproj"),
+                  let defaultBundle = Bundle(path: defaultPath) else {
+                return self
+            }
+            return NSLocalizedString(self, bundle: defaultBundle, comment: "")
+        }
+
+        return translatedString.replacingOccurrences(of: "\\n", with: "\n")
+    }
+}
+
+
+
+/*
+extension String {
+    var localized: String {
+        let languageCode = LanguageManager.shared.selectedLanguage
         guard let path = Bundle.main.path(forResource: languageCode, ofType: "lproj"),
               let bundle = Bundle(path: path) else {
             return self
@@ -20,7 +47,7 @@ extension String {
     }
 }
 
-/*
+
 extension String {
     var localized: String {
         let languageCode = LanguageManager.shared.selectedLanguage

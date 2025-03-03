@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct HomeView: View {
     
@@ -13,12 +14,16 @@ struct HomeView: View {
     @State private var pdfData: PDFWrapper?
     @ObservedObject var constants = Constants.shared
     @ObservedObject var storeManager = StoreManager.shared
+    @ObservedObject var admob = InterstitialAdManager.shared
     
     @EnvironmentObject var viewModel: MainViewModel
     @State private var scrollProxy: ScrollViewProxy?
     @State var generalActive = false
     
     @State var noPayment = false
+    
+    @State private var emailList: [String] = []
+
     
     var sortedPainLists: [PainIntensity] {
         viewModel.painLists.sorted(by: { $0.processNo > $1.processNo }) // Büyükten küçüğe sırala
@@ -79,7 +84,7 @@ struct HomeView: View {
             .frame(maxWidth: .infinity)
             .background(Color.headerbg)
             .cornerRadius(15)
-            .padding(.horizontal, 20)
+            //.padding(.horizontal, 20)
             
             HStack
             {
@@ -97,12 +102,10 @@ struct HomeView: View {
             ScrollViewReader { proxy in
                 ScrollView {
                     LazyVStack(spacing: 0) {
-                        //ForEach(viewModel.painLists.indices, id: \.self) { index in
-                        //ForEach(sortedPainLists, id: \.self) { index in
                         ForEach(sortedPainLists, id: \.processNo) { pain in
                             PainItem(pain: pain)
                                 .environmentObject(viewModel)
-                                .id(pain.processNo) // ID ekleyerek kaydırma işlemini yapacağız
+                                .id(pain.processNo)
                         }
                     }
                 }
@@ -111,8 +114,7 @@ struct HomeView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             }
-            .padding(.horizontal, 25)
-            
+            .padding(.horizontal, 15)
 
             
             GeneralButton(isActive: generalActive)
@@ -131,18 +133,44 @@ struct HomeView: View {
                     scrollProxy?.scrollTo(firstPain.processNo, anchor: .top)
                 }
             }
+            .padding(.top, 10)
             
             HStack {
                 
                 Button(action: {
                     
+                    
                     //burada kişilere pdf dosyasını gönderiyoruz...
-                    if storeManager.isSubscriptionActive {
-                        let repData = viewModel.getRapor()
-                        let generatedPDF = PDFCreator(painData: repData, title: "aaaa", subtitle: "bbb").createPDF()
-                        pdfData = PDFWrapper(data: generatedPDF)
-                    } else {
-                        noPayment = true
+                    Task {
+                        if storeManager.isSubscriptionActive {
+                            
+                            let descriptor = FetchDescriptor<Contact>()
+                            let results = try modelContext.fetch(descriptor)
+                            
+                            self.emailList = results.filter { $0.contact }
+                                                    .compactMap { $0.email }
+                                                    .filter { !$0.isEmpty }
+                            
+                            let headers = ["header_rap_no".localized,
+                                           "header_rap_startdate".localized,
+                                           "header_rap_stopdate".localized,
+                                           "header_rap_duration".localized,
+                                           "header_rap_paintinterval".localized,
+                                           "header_rap_severityvalue".localized]
+                            
+                            
+                            
+                            let repData = viewModel.getRapor()
+                            let generatedPDF = PDFCreator(painData: repData,
+                                                          title: "rap_title".localized,
+                                                          subtitle: "rap_subtitle".localized,
+                                                          reportDescription: "rap_desc".localized,
+                                                          headers: headers).createPDF()
+                            pdfData = PDFWrapper(data: generatedPDF)
+                            
+                        } else {
+                            noPayment = true
+                        }
                     }
                     
                 }) {
@@ -153,7 +181,9 @@ struct HomeView: View {
                             .foregroundColor(.black)
                             .font(.custom("Poppins-Medium", size: 13))
                     }
+                    .frame(maxWidth: .infinity)
                     .padding(10)
+                    .background(.grayf3)
                     .cornerRadius(10)
                 }
                 
@@ -175,18 +205,35 @@ struct HomeView: View {
                             .foregroundColor(.white)
                             .font(.custom("Poppins-Medium", size: 13))
                     }
+                    .frame(maxWidth: .infinity)
                     .padding(10)
                     .background(.alarmred)
                     .cornerRadius(10)
                 }
             }
-            .padding(.top, 30)
+            .frame(maxWidth: .infinity)
+            .padding(.top, 10)
             
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .padding(.all, 20)
         .sheet(item: $pdfData) { pdf in
-            PdfActivityView(activityItems: [pdf.data]) // İçindeki `Data`'yı alıyoruz
+            //PdfActivityView(activityItems: [pdf.data]) // İçindeki `Data`'yı alıyoruz
+            if self.emailList.count > 0 {
+                if let pdfDatam = pdfData?.data {
+                    MailView(
+                        recipients: self.emailList, // ✅ Hata düzeltildi: Artık dizi kabul ediyor
+                        subject: "rap_title".localized,
+                        body: "rap_subtitle".localized,
+                        attachmentData: pdfDatam,
+                        attachmentMimeType: "application/pdf",
+                        attachmentFileName: "Report.pdf"
+                    )
+                }
+            } else {
+                //gönderilecek kişiyoksa diske kayıt
+                PdfActivityView(activityItems: [pdf.data])
+            }
         }
         .alert(isPresented: $noPayment) {
             Alert(title: Text("Subscription_Control".localized),
@@ -209,6 +256,16 @@ struct HomeView: View {
                 }
             }
         }
+        .onAppear {
+            
+            if storeManager.isSubscriptionActive == false {
+                admob.showInterstitialAd()
+            }
+        }
+        //bura ödeme yoksa çalışacak şekilde düzenleyeceğiz...
+        //DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            //admob.showInterstitialAd()
+        //}
     }
 }
 

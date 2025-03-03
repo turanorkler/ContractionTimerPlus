@@ -6,14 +6,20 @@
 //
 
 import SwiftUI
+import MessageUI
 
 struct SettingsView: View {
     
+    @ObservedObject var admob = InterstitialAdManager.shared
     @StateObject private var lm = LanguageManager.shared
     @StateObject private var storeManager = StoreManager.shared
     @StateObject private var viewModel = MainViewModel()
     //@StateObject private var contactViewModel: ContactsViewModel
     @Environment(\.modelContext) private var modelContext
+    
+    @State private var showMailView = false
+    @State private var isMailAvailable = MFMailComposeViewController.canSendMail()
+
     
     @ObservedObject var constants = Constants.shared
     
@@ -42,7 +48,7 @@ struct SettingsView: View {
                         }
                         Spacer()
                         
-                        Text("Settings")
+                        Text("settings".localized)
                             .font(.custom("Poppins-Medium", size: 20))
                             .foregroundColor(.black)
                         
@@ -51,26 +57,31 @@ struct SettingsView: View {
                     .padding(.horizontal, 20)
                     .padding(.bottom, 10)
                 }
-                .frame(maxWidth: .infinity, maxHeight: 95)
+                .frame(maxWidth: .infinity, maxHeight: 85)
                 .background(.headerbg)
                 
                 
                 //içerik buradan devam edecek...
-                if storeManager.isSubscriptionActive == false {
-                    HStack {
+                HStack {
+                    
+                    VStack(alignment: .leading, spacing: 13) {
                         
-                        VStack(alignment: .leading, spacing: 13) {
+                        if storeManager.isSubscriptionActive == false
+                        {
                             Text("Unlock_all_the_features".localized)
                                 .font(.custom("Poppins-Medium", size: 14))
                                 .foregroundColor(.black)
-                            
-                            Text("app_name".localized)
-                                .font(.custom("DMSerifDisplay-Regular", size: 22))
-                                .foregroundColor(.black)
-                            
+                        }
+                        Text("app_name".localized)
+                            .font(.custom("DMSerifDisplay-Regular", size: 24))
+                            .foregroundColor(.black)
+                        
+                        if storeManager.isSubscriptionActive == false
+                        {
                             Button(action: {
                                 constants.fullScreenCover = .paywall2
                             }) {
+                                
                                 HStack {
                                     Image(systemName: "lock")
                                         .foregroundColor(.white)
@@ -84,22 +95,41 @@ struct SettingsView: View {
                                 .background(Color.greenradial1)
                                 .cornerRadius(10)
                             }
+                        } else
+                        {
+                            VStack(alignment: .leading)
+                            {
+                                Image(systemName: "crown")
+                                    .resizable()
+                                    .frame(width: 40, height: 30)
+                                    .foregroundColor(.black)
+                                
+                                Text(storeManager.isSubscriptionName.localized)
+                                    .font(.custom("Poppins-Medium", size: 15))
+                                    .foregroundColor(.black)
+                                    .lineLimit(nil)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                
+                            }
+                            .padding(10)
+                            .cornerRadius(10)
                         }
-                        .frame(maxWidth: .infinity, alignment: .topLeading)
                         
-                        Spacer() // Sağ tarafı boş bırak
-                        
-                        Image("settingspregnant")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 170) // Sabit yükseklik kullan
                     }
-                    .frame(maxWidth: .infinity, alignment: .topLeading) // HStack de sola yaslansın
-                    .padding(10)
-                    .background(Color.gray.opacity(0.2))
-                    .cornerRadius(20)
-                    .padding(20)
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                    
+                    Spacer() // Sağ tarafı boş bırak
+                    
+                    Image("settingspregnant")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 170) // Sabit yükseklik kullan
                 }
+                .frame(maxWidth: .infinity, alignment: .topLeading) // HStack de sola yaslansın
+                .padding(10)
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(20)
+                .padding(20)
                 
                 VStack(spacing: 15)
                 {
@@ -111,7 +141,7 @@ struct SettingsView: View {
                         .padding(.vertical, 10)
                         .background(Color.headerbg)
                         .cornerRadius(10)
-                    */
+                    
                     
                     Toggle("Ask_intensity_of_contractions".localized, isOn: $constants.contractionIntensity)
                         .font(.custom("Poppins-Medium", size: 15))
@@ -120,6 +150,7 @@ struct SettingsView: View {
                         .padding(.vertical, 10)
                         .background(Color.headerbg)
                         .cornerRadius(10)
+                     */
                     
                     NavigationLink(destination: ContactView())
                     {
@@ -143,8 +174,11 @@ struct SettingsView: View {
                         SettingsButton(title: "Language_Change".localized)
                     }
                     
-                    SettingsButton(title: "Support")
-                    
+                    Button(action: {
+                        self.showMailView = true
+                    }) {
+                        SettingsButton(title: "Support".localized)
+                    }
                     Button(action : {
                         showDeleteAlert = true
                     }) {
@@ -171,10 +205,15 @@ struct SettingsView: View {
         }
         .edgesIgnoringSafeArea(.all)
         .navigationBarBackButtonHidden(true)
+        .sheet(isPresented: $showMailView) {
+            //MailView(recipient: "ismail.orkler@gmail.com", subject: "Test Konusu", body: "Bu bir test mailidir.")
+        }
         .sheet(isPresented: $lm.showLanguageSheet) {
             LanguageSelectionView()
                 //.presentationDetents([.medium])
-                .presentationDetents([.fraction(0.42)])
+                //.presentationDetents([.fraction(0.42)])
+                .presentationDetents([.height(490)]) // İçerik boyutuna göre ayarlanabilir
+                .presentationDragIndicator(.visible)
         }
         .alert("are_you_deleted".localized, isPresented: $showDeleteAlert) {
             Button("Cancel".localized, role: .cancel) {
@@ -192,6 +231,11 @@ struct SettingsView: View {
                     Text(storeManager.isSubscriptionActive ?
                          "Subscription_is_active".localized : "Subscription_no".localized),
                   dismissButton: .default(Text("Ok".localized)))
+        }
+        .onAppear {
+            if storeManager.isSubscriptionActive == false {
+                admob.showInterstitialAd()
+            }
         }
     }
 }

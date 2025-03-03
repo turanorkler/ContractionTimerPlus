@@ -12,13 +12,19 @@ import StoreKit
 class StoreManager: ObservableObject {
     
     static let shared = StoreManager()
+    @ObservedObject var contants = Constants.shared
+    
     private let userDefaults = UserDefaults.standard
     @Published var products: [Product] = []
     @Published var purchasedSubscription: Product? // Mevcut satın alınmış abonelik
+    @Published var isSubscriptionName : String = ""
     @Published var isSubscriptionActive = false
     @Published var showPaywall = false // Paywall'ı göstermek için
     
-    let productIDs = ["com.trn.contractionsTimer.weeklynew", "com.trn.contractionsTimer.monthly", "com.trn.contractionsTimer.monthly3dayfree", "com.trn.contractionsTimer.weekly3dayfree"]
+    let productIDs = ["com.trn.contractionsTimer.weeklynew",
+                      "com.trn.contractionsTimer.monthly",
+                      "com.trn.contractionsTimer.monthly3dayfree",
+                      "com.trn.contractionsTimer.weekly3dayfree"]
     
     init() {
         Task {
@@ -51,6 +57,7 @@ class StoreManager: ObservableObject {
                 await transaction.finish()
                 self.purchasedSubscription = product
                 self.isSubscriptionActive = true
+                contants.fullScreenCover = nil // açık paywalları kapatır...
                 self.showPaywall = false // Paywall'ı kapat
                 return true
             }
@@ -87,6 +94,14 @@ class StoreManager: ObservableObject {
                 let productID = transaction.productID
                 if let product = products.first(where: { $0.id == productID }) {
                     self.purchasedSubscription = product
+                    if let idm = self.purchasedSubscription?.id {
+                        if idm == productIDs[0] || idm == productIDs[3]
+                        {
+                            self.isSubscriptionName = "Premium_Weekly_Sub"
+                        } else {
+                            self.isSubscriptionName = "Premium_Yearly_Sub"
+                        }
+                    }
                     self.isSubscriptionActive = true
                     return
                 }

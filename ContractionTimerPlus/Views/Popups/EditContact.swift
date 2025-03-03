@@ -51,14 +51,17 @@ struct EditContact: View {
                     Text(contactNo == 0 ? "Add_Contact".localized : "Edit_Contact".localized)
                         .font(.custom("Poppins-Medium", size: 25))
                         .foregroundColor(.black)
+                        .padding(.top, 10)
 
                     // **FORM ALANI**
                     Text("Name_Star".localized)
                         .font(.custom("Poppins-Medium", size: 13))
                         .foregroundColor(.black)
+                        .padding(.top, 15)
 
                     TextField("Name", text: $name)
                         .font(.custom("Poppins-Medium", size: 16))
+                        .foregroundColor(.black)
                         .padding(10)
                         .cornerRadius(10)
                         .overlay {
@@ -69,9 +72,11 @@ struct EditContact: View {
                     Text("email".localized)
                         .font(.custom("Poppins-Medium", size: 13))
                         .foregroundColor(.black)
+                        .padding(.top, 15)
 
                     TextField("email".localized, text: $email)
                         .font(.custom("Poppins-Medium", size: 16))
+                        .foregroundColor(.black)
                         .padding(10)
                         .cornerRadius(10)
                         .overlay {
@@ -79,7 +84,11 @@ struct EditContact: View {
                                 .stroke(.black, lineWidth: 1)
                         }
                         .keyboardType(.emailAddress)
+                        .autocapitalization(.none) // ✅ Büyük harf otomatik başlamasın
+                        .disableAutocorrection(true) // ✅ Otomatik düzeltmeyi kapat
+                        .textInputAutocapitalization(.never)
 
+                    /*
                     Text("phone".localized)
                         .font(.custom("Poppins-Medium", size: 13))
                         .foregroundColor(.black)
@@ -93,13 +102,14 @@ struct EditContact: View {
                                 .stroke(.black, lineWidth: 1)
                         }
                         .keyboardType(.phonePad)
-
+                    */
+                    
                     Toggle("report".localized, isOn: $isContact)
-                        .font(.custom("Poppins-Medium", size: 13))
+                        .font(.custom("Poppins-Medium", size: 16))
                         .foregroundColor(.black)
 
                     Toggle("urgent".localized, isOn: $isUrgent)
-                        .font(.custom("Poppins-Medium", size: 13))
+                        .font(.custom("Poppins-Medium", size: 16))
                         .foregroundColor(.black)
                         .padding(.bottom, 20)
 
@@ -161,5 +171,5 @@ struct EditContact: View {
 
 #Preview {
     //@Previewable @StateObject var viewModel = ContactsViewModel()
-    //EditContact(viewModel: viewModel)
+    EditContact(viewModel: ContactsViewModel())
 }

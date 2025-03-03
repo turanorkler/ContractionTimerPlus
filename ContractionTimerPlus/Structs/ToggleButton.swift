@@ -70,7 +70,7 @@ struct ToggleButton: View {
 }
 
 #Preview {
-    ToggleButton(title: "Monthly", price: "$10.99", isActive: true)
+    ToggleButton(title: "Monthly".localized, price: "$10.99", isActive: true)
     {
         
     }

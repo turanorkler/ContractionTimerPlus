@@ -12,15 +12,20 @@ import SwiftData
 @main
 struct ContractionTimerPlusApp: App {
     
+    @AppStorage("appFirstRun") private var appFirstRun: Bool = false
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @ObservedObject var constants = Constants.shared
     @ObservedObject var lm = LanguageManager.shared
-    @ObservedObject var storeManager = StoreManager.shared
+    @ObservedObject  var storeManager = StoreManager.shared
     
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                OnboardingView()
+                if !appFirstRun {
+                    OnboardingView()
+                } else {
+                    MainView()
+                }
             }
             .overlay(
                 Group {

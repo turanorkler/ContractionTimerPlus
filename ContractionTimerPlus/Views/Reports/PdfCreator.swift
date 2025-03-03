@@ -11,6 +11,7 @@ class PDFCreator {
     var title = "KASILMA GEÇMİŞİ"
     var subtitle = "Kasılma Zamanlayıcısı Contraction Timer 9M +"
     var logoImage: UIImage? = UIImage(named: "logo") // 🔹 Logoyu assetlerden al
+    var headers: [String] = []
 
     var reportDescription = """
     - Bu rapor kasılma sürelerini içermektedir.
@@ -18,10 +19,12 @@ class PDFCreator {
     - Şiddet bilgisi hastanın beyanına dayalıdır.
     """
 
-    init(painData: [ReportData], title: String, subtitle: String) {
+    init(painData: [ReportData], title: String, subtitle: String, reportDescription: String, headers: [String] = []) {
         self.painData = painData
         self.title = title
         self.subtitle = subtitle
+        self.headers = headers
+        self.reportDescription = reportDescription
     }
 
     func createPDF() -> Data {
@@ -38,9 +41,6 @@ class PDFCreator {
         let rowHeight: CGFloat = 30
         let availableWidth = pageWidth - (2 * margin)
 
-        let headers = ["No", "Başlat", "Bitiş", "Süre", "Sancı Aralığı", "Şiddet"]
-
-        // **🔹 En uzun metinleri bul ve sütun genişliklerini hesapla**
         let font = UIFont.systemFont(ofSize: 12)
         var columnWidths = headers.map { getTextWidth(text: $0, font: font) }
 
@@ -50,11 +50,10 @@ class PDFCreator {
             ]
             for (index, value) in rowValues.enumerated() {
                 let textWidth = getTextWidth(text: value, font: font)
-                columnWidths[index] = max(columnWidths[index], textWidth) // **🔹 En geniş sütunu seç**
+                columnWidths[index] = max(columnWidths[index], textWidth)
             }
         }
 
-        // **🔹 Toplam genişlik sayfanın genişliğini geçiyorsa, oranlayarak daralt**
         let totalWidth = columnWidths.reduce(0, +)
         if totalWidth > availableWidth {
             let scaleFactor = availableWidth / totalWidth
@@ -62,61 +61,85 @@ class PDFCreator {
         }
 
         let renderer = UIGraphicsPDFRenderer(bounds: CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight), format: format)
-
         let data = renderer.pdfData { context in
-            context.beginPage()
-
-            let titleFont = UIFont.boldSystemFont(ofSize: 18)
-            let subtitleFont = UIFont.systemFont(ofSize: 14)
-            let descriptionFont = UIFont.systemFont(ofSize: 12)
-
-            // **🔹 LOGO YERLEŞİMİ**
-            let logoSize = CGSize(width: 60, height: 60)
-            let logoRect = CGRect(x: margin, y: 20, width: logoSize.width, height: logoSize.height)
-            if let logo = logoImage {
-                logo.draw(in: logoRect)
-            }
-
-            // **🔹 BAŞLIK VE ALT BAŞLIK LOGO YANINA**
-            let titleX = logoRect.maxX + 10
-            let titleWidth = 250.0
-
-            let titleRect = CGRect(x: titleX, y: 25, width: titleWidth, height: 20)
-            drawLeftAlignedText(text: title, rect: titleRect, font: titleFont, textColor: .black)
-
-            let subtitleRect = CGRect(x: titleX, y: 45, width: titleWidth, height: 15)
-            drawLeftAlignedText(text: subtitle, rect: subtitleRect, font: subtitleFont, textColor: .darkGray)
-
-            // **🔹 RAPOR AÇIKLAMALARI SAĞ ÜSTE**
-            let descriptionX = pageWidth - 200 - margin
-            let descriptionWidth = 200.0
-            let descriptionRect = CGRect(x: descriptionX, y: 20, width: descriptionWidth, height: 60)
-            drawLeftAlignedText(text: reportDescription, rect: descriptionRect, font: descriptionFont, textColor: .black)
-
-            // **🔹 OLUŞTURULMA TARİHİ**
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
-            let currentDate = dateFormatter.string(from: Date())
-
-            let dateRect = CGRect(x: descriptionX, y: 90, width: descriptionWidth, height: 15)
-            drawLeftAlignedText(text: "Oluşturulma: \(currentDate)", rect: dateRect, font: descriptionFont, textColor: .darkGray)
-
-            // **🔹 HEADER BİTTİ, TABLO BAŞLIKLARI BURADAN SONRA GELECEK**
-            var currentX = margin
+            var pageNumber = 1
             var currentY: CGFloat = 120
 
-            // **🔹 Tablo Başlıklarını Çiz**
-            UIColor.black.setFill()
-            UIRectFill(CGRect(x: margin, y: currentY, width: availableWidth, height: rowHeight))
-            for (index, text) in headers.enumerated() {
-                let rect = CGRect(x: currentX, y: currentY, width: columnWidths[index], height: rowHeight)
-                drawCenteredText(text: text, rect: rect, font: UIFont.boldSystemFont(ofSize: 12), textColor: .white)
-                currentX += columnWidths[index]
+            func addPageNumber() {
+                let pageNumberText = "\(pageNumber)"
+                let font = UIFont.systemFont(ofSize: 12)
+                let attributes: [NSAttributedString.Key: Any] = [
+                    .font: font,
+                    .foregroundColor: UIColor.darkGray
+                ]
+                let textSize = (pageNumberText as NSString).size(withAttributes: attributes)
+                let pageNumberRect = CGRect(
+                    x: pageWidth - textSize.width - margin,
+                    y: pageHeight - textSize.height - margin,
+                    width: textSize.width,
+                    height: textSize.height
+                )
+                (pageNumberText as NSString).draw(in: pageNumberRect, withAttributes: attributes)
             }
-            currentY += rowHeight
 
-            // **🔹 Veri Satırlarını Çiz**
+            func drawPageHeader() {
+                context.beginPage()
+                currentY = 120
+
+                let titleFont = UIFont.boldSystemFont(ofSize: 18)
+                let subtitleFont = UIFont.systemFont(ofSize: 14)
+                let descriptionFont = UIFont.systemFont(ofSize: 12)
+
+                let logoSize = CGSize(width: 60, height: 60)
+                let logoRect = CGRect(x: margin, y: 20, width: logoSize.width, height: logoSize.height)
+                if let logo = logoImage {
+                    logo.draw(in: logoRect)
+                }
+
+                let titleX = logoRect.maxX + 10
+                let titleWidth = 250.0
+
+                let titleRect = CGRect(x: titleX, y: 25, width: titleWidth, height: 20)
+                drawLeftAlignedText(text: title, rect: titleRect, font: titleFont, textColor: .black)
+
+                let subtitleRect = CGRect(x: titleX, y: 45, width: titleWidth, height: 15)
+                drawLeftAlignedText(text: subtitle, rect: subtitleRect, font: subtitleFont, textColor: .darkGray)
+
+                let descriptionX = pageWidth - 250 - margin
+                let descriptionWidth = 250.0
+                let descriptionRect = CGRect(x: descriptionX, y: 20, width: descriptionWidth, height: 60)
+                drawLeftAlignedText(text: reportDescription, rect: descriptionRect, font: descriptionFont, textColor: .black)
+
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yy-MM-dd HH:mm"
+                let currentDate = dateFormatter.string(from: Date())
+
+                let dateRect = CGRect(x: descriptionX, y: 90, width: descriptionWidth, height: 15)
+                drawLeftAlignedText(text: "Date: \(currentDate)", rect: dateRect, font: descriptionFont, textColor: .black)
+
+                var currentX = margin
+                UIColor.black.setFill()
+                UIRectFill(CGRect(x: margin, y: currentY, width: availableWidth, height: rowHeight))
+
+                for (index, text) in headers.enumerated() {
+                    let rect = CGRect(x: currentX, y: currentY, width: columnWidths[index], height: rowHeight)
+                    drawCenteredText(text: text, rect: rect, font: UIFont.boldSystemFont(ofSize: 12), textColor: .white)
+                    currentX += columnWidths[index]
+                }
+                currentY += rowHeight
+            }
+
+            drawPageHeader()
+
+            let maxRowsPerPage = Int((pageHeight - currentY - 50) / rowHeight)
+
             for (index, pain) in painData.enumerated() {
+                if index > 0 && index % maxRowsPerPage == 0 {
+                    addPageNumber()
+                    pageNumber += 1
+                    drawPageHeader()
+                }
+
                 let bgColor: UIColor = (index % 2 == 0) ? UIColor.lightGray : UIColor.white
                 bgColor.setFill()
                 UIRectFill(CGRect(x: margin, y: currentY, width: availableWidth, height: rowHeight))
@@ -125,31 +148,47 @@ class PDFCreator {
                     "\(pain.processNo)", pain.processStartTime, pain.processEndTime, pain.processDateDifferent, pain.painRange, pain.painIntensity
                 ]
 
-                currentX = margin
+                var currentX = margin
                 for (columnIndex, text) in rowValues.enumerated() {
                     let rect = CGRect(x: currentX, y: currentY, width: columnWidths[columnIndex], height: rowHeight)
-
                     drawCenteredText(text: text, rect: rect, font: font, textColor: .black)
-
                     currentX += columnWidths[columnIndex]
                 }
                 currentY += rowHeight
             }
+
+            addPageNumber()
         }
+
         return data
     }
-
+    
     private func getTextWidth(text: String, font: UIFont) -> CGFloat {
         let attributes = [NSAttributedString.Key.font: font]
         return (text as NSString).size(withAttributes: attributes).width + 20
     }
 
     private func drawLeftAlignedText(text: String, rect: CGRect, font: UIFont, textColor: UIColor) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .left
+        paragraphStyle.lineBreakMode = .byWordWrapping
+
         let attributes: [NSAttributedString.Key: Any] = [
             .font: font,
-            .foregroundColor: textColor
+            .foregroundColor: textColor,
+            .paragraphStyle: paragraphStyle
         ]
-        (text as NSString).draw(in: rect, withAttributes: attributes)
+
+        let textSize = (text as NSString).boundingRect(
+            with: CGSize(width: rect.width, height: CGFloat.greatestFiniteMagnitude),
+            options: .usesLineFragmentOrigin,
+            attributes: attributes,
+            context: nil
+        ).size
+
+        let adjustedRect = CGRect(x: rect.origin.x, y: rect.origin.y, width: rect.width, height: textSize.height)
+
+        (text as NSString).draw(in: adjustedRect, withAttributes: attributes)
     }
 
     private func drawCenteredText(text: String, rect: CGRect, font: UIFont, textColor: UIColor) {

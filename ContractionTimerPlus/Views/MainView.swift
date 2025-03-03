@@ -12,10 +12,11 @@ struct MainView: View {
     
     @Environment(\.modelContext) private var modelContext
     
+    @AppStorage("appFirstRun") private var appFirstRun: Bool = false
     @StateObject private var viewModel = MainViewModel()
     @ObservedObject var constants = Constants.shared
-    @StateObject private var apple = AuthViewModel.shared
-    @StateObject private var storeManager = StoreManager.shared
+    @ObservedObject var apple = AuthViewModel.shared
+    @ObservedObject var storeManager = StoreManager.shared
     @State private var firstRun = false
 
     var body: some View {
@@ -25,9 +26,10 @@ struct MainView: View {
             
             VStack(spacing: 0)
             {
-                VStack(spacing: 0) {
-                    Spacer()
-                    HStack {
+                VStack(spacing: 0)
+                {
+                    HStack(alignment: .bottom)
+                    {
                         NavigationLink(destination: SettingsView())
                         {
                             Image(systemName: "gearshape")
@@ -43,54 +45,68 @@ struct MainView: View {
                         
                         Spacer()
                         
-                        Button(action : {
-                            constants.popUpCover = .gotoHospital
-                        }) {
+                        if storeManager.isSubscriptionActive {
                             Image(systemName: "crown")
                                 .resizable()
                                 .frame(width: 30, height: 25)
                                 .foregroundColor(.black)
+                            
+                        } else {
+                            
+                            Button(action: {
+                                constants.fullScreenCover = .paywall2
+                            }) {
+                                HStack(alignment: .bottom)
+                                {
+                                    Text("No_Ads".localized)
+                                        .font(.custom("Poppins-Medium", size: 15))
+                                        .padding(10)
+                                        .background(.greenradial)
+                                        .foregroundColor(.white)
+                                        .cornerRadius(10)
+                                        .frame(height: 40)
+                                }
+                            }
+                            
+                            
                         }
                     }
+                    .padding(.top, 50)
                     .padding(.horizontal, 20)
                     .padding(.bottom, 10)
                 }
-                .frame(maxWidth: .infinity, maxHeight: 95)
+                
+                .frame(maxWidth: .infinity)
                 .background(.headerbg)
                 
-                /*
-                VStack {
-                    Text("👤 Ad Soyad: \(apple.fullName)")
-                    Text("📧 E-posta: \(apple.email)")
-                    Text("🔑 UID: \(apple.user?.uid ?? "Yok")")
-                    
-                    Button(action: {
-                        apple.signOut()
-                    }) {
-                        Text("Çıkış Yap")
-                            .padding()
-                            .background(Color.red)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                if !appFirstRun {
+                    if viewModel.screen == .start {
+                        StartView()
+                            .environmentObject(viewModel)
+                    } else if viewModel.screen == .home {
+                        HomeView()
+                            .environmentObject(viewModel)
                     }
-                }
-                .font(.custom("Poppins-Medium", size: 14))
-                .foregroundColor(.black)
-                */
-                if viewModel.screen == .start {
-                    StartView()
-                        .environmentObject(viewModel)
-                } else if viewModel.screen == .home {
+                } else {
                     HomeView()
                         .environmentObject(viewModel)
                 }
+                
                 //.background(.secondary)
-                if constants.isPay == false {
+                if storeManager.isSubscriptionActive == false {
                     HStack {
                         
-                        BannerView(adUnitID: "ca-app-pub-3940256099942544/2934735716")
-                                        .frame(width: 320, height: 50)
-                                        .padding(20)
+                        BannerView(adUnitID: {
+                            #if DEBUG
+                                return "ca-app-pub-3940256099942544/2934735716"
+                            #else
+                                return "ca-app-pub-4755969652035514/5821116971"
+                            #endif
+                        }())
+                        .frame(width: 320, height: 50)
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 15)
+                        
                         //Text("Reklam buraya gelecek")
                         //    .padding(20)
                     }
@@ -104,8 +120,8 @@ struct MainView: View {
         }
         .environmentObject(viewModel)
         .onAppear {
-            if !firstRun {
-                firstRun = false
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
                 if storeManager.isSubscriptionActive == false {
                     constants.fullScreenCover = .paywall1
                 }

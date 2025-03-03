@@ -9,6 +9,9 @@ import SwiftUI
 
 struct StartView: View {
     
+    @AppStorage("appFirstRun") private var appFirstRun: Bool = false
+    @ObservedObject var admob = InterstitialAdManager.shared
+    @StateObject private var storeManager = StoreManager.shared
     @EnvironmentObject var viewModel: MainViewModel
     
     var body: some View {
@@ -42,6 +45,11 @@ struct StartView: View {
             
             Button(action : {
                 viewModel.changeScreen(.home)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    appFirstRun = true
+                }
+                
             }) {
                 Text("Start".localized)
                     .padding(10)
@@ -54,6 +62,11 @@ struct StartView: View {
                     .padding(.top, 20)
             }
         
+        }
+        .onAppear {
+            if storeManager.isSubscriptionActive == false {
+                admob.showInterstitialAd()
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .padding(.horizontal, 20)

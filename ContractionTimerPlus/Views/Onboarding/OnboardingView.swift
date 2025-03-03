@@ -28,7 +28,7 @@ struct OnboardingView: View {
                     Text("Welcome_to".localized)
                     Text(String("Contraction"))
                     HStack {
-                        Text(String("Timer Plus"))
+                        Text(String("Timer Plus + "))
                         Image("heart")
                     }
                     .padding(.all,0)

@@ -70,6 +70,7 @@ struct PainItem : View {
                 .frame(height: 70)
                 
                 VStack(spacing: 0) {
+                    
                     Text(formattedCurrentTime())
                         .font(.custom("Poppins-Medium", size: 22))
                         .fontWeight(Font.Weight.medium)
@@ -108,19 +109,25 @@ struct PainItem : View {
    }
     
     private func formattedCurrentTime() -> String {
-        if pain.processEndTime == nil {
-            return String("0:00")
+        guard pain.processEndTime != nil else {
+            return "0:00"
         }
-    
-        var timer = Date()
-        if let nextItem = viewModel.painLists.first(where: { $0.processNo > pain.processNo }) {
-            timer = nextItem.processStartTime
-        }
+        
+        let sortedPainLists = viewModel.painLists.sorted { $0.processNo < $1.processNo }
+        
+        // Kendinden bir büyük olan `processNo` değerine sahip kaydı bul
+        let nextItem = sortedPainLists.first(where: { $0.processNo > pain.processNo })
+        
+        // Eğer kendinden büyük bir kayıt varsa onun `processStartTime` değerini al,
+        // yoksa (son kayıt ise) `Date()` kullan.
+        let timer = nextItem?.processStartTime ?? Date()
+        
         let interval = timer.timeIntervalSince(pain.processStartTime)
         let minutes = Int(interval) / 60
         let seconds = Int(interval) % 60
         return String(format: "%2d:%02d", minutes, seconds)
     }
+
 }
 
 #Preview
