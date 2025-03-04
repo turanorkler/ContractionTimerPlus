@@ -18,6 +18,8 @@ class StoreManager: ObservableObject {
     @Published var products: [Product] = []
     @Published var purchasedSubscription: Product? // Mevcut satın alınmış abonelik
     @Published var isSubscriptionName : String = ""
+    @Published var transactionID : String = ""
+    @Published var originalTransactionID : String = ""
     @Published var isSubscriptionActive = false
     @Published var showPaywall = false // Paywall'ı göstermek için
     
@@ -94,6 +96,10 @@ class StoreManager: ObservableObject {
                 let productID = transaction.productID
                 if let product = products.first(where: { $0.id == productID }) {
                     self.purchasedSubscription = product
+                    
+                    self.transactionID = "\(transaction.id)"
+                    self.originalTransactionID = "\(transaction.originalID)"
+                    
                     if let idm = self.purchasedSubscription?.id {
                         if idm == productIDs[0] || idm == productIDs[3]
                         {

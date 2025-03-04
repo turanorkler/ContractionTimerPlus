@@ -56,7 +56,7 @@ struct OnboardingView2: View {
                     )
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, 40)
+                //.padding(.bottom, 15)
                 .safeAreaPadding(.bottom)
                 
             }
@@ -65,6 +65,10 @@ struct OnboardingView2: View {
         .navigationBarBackButtonHidden(true)
     }
 
+}
+
+#Preview {
+    OnboardingView()
 }
 
 #Preview {

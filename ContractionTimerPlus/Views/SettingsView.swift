@@ -20,6 +20,8 @@ struct SettingsView: View {
     @State private var showMailView = false
     @State private var isMailAvailable = MFMailComposeViewController.canSendMail()
 
+    @State private var showAlert : Bool = false
+    @State private var errorMessage : String = ""
     
     @ObservedObject var constants = Constants.shared
     
@@ -175,7 +177,10 @@ struct SettingsView: View {
                     }
                     
                     Button(action: {
-                        self.showMailView = true
+                        Task {
+                            await storeManager.checkSubscriptionStatus()
+                            self.showMailView = true
+                        }
                     }) {
                         SettingsButton(title: "Support".localized)
                     }
@@ -207,6 +212,35 @@ struct SettingsView: View {
         .navigationBarBackButtonHidden(true)
         .sheet(isPresented: $showMailView) {
             //MailView(recipient: "ismail.orkler@gmail.com", subject: "Test Konusu", body: "Bu bir test mailidir.")
+            
+            MailView(
+                recipients: ["ismail.orkler@gmail.com"],
+                subject: "Support Mail",
+                body: """
+                <html>
+                <body>
+                    <h1>Support Mail</h1>
+                    <p></p>
+                    <ul>
+                        <li><strong>Transaction ID:</strong> \($storeManager.transactionID)</li>
+                        <li><strong>Original Transaction ID:</strong> \(storeManager.originalTransactionID)</li>
+                    </ul>
+                </body>
+                </html>
+                """,
+                attachmentData: nil,
+                attachmentMimeType: nil,
+                attachmentFileName: nil,
+                onError: { error in
+                    errorMessage = error.localizedDescription
+                    showAlert = true
+                }
+            )
+        }
+        .alert("error_title".localized, isPresented: $showAlert) {
+            Button(String("Tamam"), role: .cancel) { self.showAlert = false}
+        } message: {
+            Text(errorMessage) // Kullanıcıya hata mesajını göster
         }
         .sheet(isPresented: $lm.showLanguageSheet) {
             LanguageSelectionView()

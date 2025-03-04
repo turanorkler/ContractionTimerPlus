@@ -12,19 +12,18 @@ struct HomeView: View {
     
     @Environment(\.modelContext) private var modelContext
     @State private var pdfData: PDFWrapper?
-    @ObservedObject var constants = Constants.shared
-    @ObservedObject var storeManager = StoreManager.shared
-    @ObservedObject var admob = InterstitialAdManager.shared
+    @State private var pdfData2: PDFWrapper?
+    @ObservedObject private var constants = Constants.shared
+    @ObservedObject private var storeManager = StoreManager.shared
+    @ObservedObject private var admob = InterstitialAdManager.shared
     
     @EnvironmentObject var viewModel: MainViewModel
     @State private var scrollProxy: ScrollViewProxy?
-    @State var generalActive = false
+    @State private var generalActive = false
     
-    @State var noPayment = false
-    
-    @State private var emailList: [String] = []
-
-    
+    @State private var noPayment = false
+    @State private var showingOptions = false
+    @State private var sendMail = false
     var sortedPainLists: [PainIntensity] {
         viewModel.painLists.sorted(by: { $0.processNo > $1.processNo }) // Büyükten küçüğe sırala
     }
@@ -117,7 +116,7 @@ struct HomeView: View {
             .padding(.horizontal, 15)
 
             
-            GeneralButton(isActive: generalActive)
+            GeneralButton2(isActive: generalActive)
             {
                 if generalActive {
                     generalActive = false
@@ -138,36 +137,82 @@ struct HomeView: View {
             HStack {
                 
                 Button(action: {
-                    
-                    
                     //burada kişilere pdf dosyasını gönderiyoruz...
                     Task {
+                        
+                        viewModel.getMailList(modelContext: modelContext)
+                        
                         if storeManager.isSubscriptionActive {
-                            
-                            let descriptor = FetchDescriptor<Contact>()
-                            let results = try modelContext.fetch(descriptor)
-                            
-                            self.emailList = results.filter { $0.contact }
-                                                    .compactMap { $0.email }
-                                                    .filter { !$0.isEmpty }
-                            
-                            let headers = ["header_rap_no".localized,
-                                           "header_rap_startdate".localized,
-                                           "header_rap_stopdate".localized,
-                                           "header_rap_duration".localized,
-                                           "header_rap_paintinterval".localized,
-                                           "header_rap_severityvalue".localized]
-                            
-                            
-                            
-                            let repData = viewModel.getRapor()
-                            let generatedPDF = PDFCreator(painData: repData,
-                                                          title: "rap_title".localized,
-                                                          subtitle: "rap_subtitle".localized,
-                                                          reportDescription: "rap_desc".localized,
-                                                          headers: headers).createPDF()
-                            pdfData = PDFWrapper(data: generatedPDF)
-                            
+                            self.showingOptions = true
+                        } else {
+                            noPayment = true
+                        }
+                    }
+                    
+                }) {
+                    HStack {
+                        Image(systemName: "water.waves")
+                            .foregroundColor(.black)
+                        Text("Share_Contractions".localized)
+                            .foregroundColor(.black)
+                            .font(.custom("Poppins-Medium", size: 13))
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(5)
+                    .background(.grayf3)
+                    .cornerRadius(10)
+                }
+                .actionSheet(isPresented: $showingOptions) {
+                    ActionSheet(
+                        title: Text("Select_an_action".localized),
+                        buttons: [
+                            .default(Text("send_mail".localized)) {
+                                let headers = ["header_rap_no".localized,
+                                               "header_rap_startdate".localized,
+                                               "header_rap_stopdate".localized,
+                                               "header_rap_duration".localized,
+                                               "header_rap_paintinterval".localized,
+                                               "header_rap_severityvalue".localized]
+                                
+                                
+                                let repData = viewModel.getRapor()
+                                let generatedPDF = PDFCreator(painData: repData,
+                                                              title: "rap_title".localized,
+                                                              subtitle: "rap_subtitle".localized,
+                                                              reportDescription: "rap_desc".localized,
+                                                              headers: headers).createPDF()
+                                pdfData = PDFWrapper(data: generatedPDF)
+                            },
+
+                            .default(Text("get_report".localized)) {
+                                
+                                let headers = ["header_rap_no".localized,
+                                               "header_rap_startdate".localized,
+                                               "header_rap_stopdate".localized,
+                                               "header_rap_duration".localized,
+                                               "header_rap_paintinterval".localized,
+                                               "header_rap_severityvalue".localized]
+                                
+                                
+                                let repData = viewModel.getRapor()
+                                let generatedPDF = PDFCreator(painData: repData,
+                                                              title: "rap_title".localized,
+                                                              subtitle: "rap_subtitle".localized,
+                                                              reportDescription: "rap_desc".localized,
+                                                              headers: headers).createPDF()
+                                
+                                pdfData2 = PDFWrapper(data: generatedPDF)
+                            },
+                        ]
+                    )
+                }
+                
+                Button(action: {
+                    //burada acil kişilerini filtreleyip mail ve/veya mesaj yada göndereceğiz...
+                    viewModel.getMailList(modelContext: modelContext)
+                    Task {
+                        if storeManager.isSubscriptionActive {
+                            self.sendMail = true
                         } else {
                             noPayment = true
                         }
@@ -176,40 +221,18 @@ struct HomeView: View {
                 }) {
                     HStack {
                         Image(systemName: "envelope")
-                            .foregroundColor(.black)
-                        Text("Share_Contractions".localized)
-                            .foregroundColor(.black)
+                            .foregroundColor(.white)
+                        
+                        Text("inform_people".localized)
+                            .foregroundColor(.white)
                             .font(.custom("Poppins-Medium", size: 13))
                     }
                     .frame(maxWidth: .infinity)
-                    .padding(10)
-                    .background(.grayf3)
+                    .padding(5)
+                    .background(.darkgray)
                     .cornerRadius(10)
                 }
                 
-                Button(action: {
-                    //burada acil kişilerini filtreleyip mail ve/veya mesaj yada göndereceğiz...
-                    if storeManager.isSubscriptionActive {
-                        
-                        
-                    } else {
-                        noPayment = true
-                    }
-                    
-                }) {
-                    HStack {
-                        Image(systemName: "light.beacon.max")
-                            .foregroundColor(.white)
-                        
-                        Text("Emergency_Texts".localized)
-                            .foregroundColor(.white)
-                            .font(.custom("Poppins-Medium", size: 13))
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(10)
-                    .background(.alarmred)
-                    .cornerRadius(10)
-                }
             }
             .frame(maxWidth: .infinity)
             .padding(.top, 10)
@@ -217,23 +240,32 @@ struct HomeView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .padding(.all, 20)
+        .onAppear
+        {
+            viewModel.getMailList(modelContext: modelContext)
+        }
+        .sheet(isPresented: $sendMail) {
+            MailView(
+                recipients: viewModel.emailList, // ✅ Hata düzeltildi: Artık dizi kabul ediyor
+                subject: "help_mail_title".localized,
+                body: "help_mail_desc".localized,
+                attachmentData: nil,
+                attachmentMimeType: nil,
+                attachmentFileName: nil
+                )
+        }
         .sheet(item: $pdfData) { pdf in
-            //PdfActivityView(activityItems: [pdf.data]) // İçindeki `Data`'yı alıyoruz
-            if self.emailList.count > 0 {
-                if let pdfDatam = pdfData?.data {
-                    MailView(
-                        recipients: self.emailList, // ✅ Hata düzeltildi: Artık dizi kabul ediyor
-                        subject: "rap_title".localized,
-                        body: "rap_subtitle".localized,
-                        attachmentData: pdfDatam,
-                        attachmentMimeType: "application/pdf",
-                        attachmentFileName: "Report.pdf"
-                    )
-                }
-            } else {
-                //gönderilecek kişiyoksa diske kayıt
-                PdfActivityView(activityItems: [pdf.data])
-            }
+            MailView(
+                recipients: viewModel.emailList, // ✅ Hata düzeltildi: Artık dizi kabul ediyor
+                subject: "rap_title".localized,
+                body: "rap_subtitle".localized,
+                attachmentData: pdf.data,
+                attachmentMimeType: "application/pdf",
+                attachmentFileName: "Report.pdf"
+            )
+        }
+        .sheet(item: $pdfData2) { pdf in
+            PdfActivityView(activityItems: [pdf.data])
         }
         .alert(isPresented: $noPayment) {
             Alert(title: Text("Subscription_Control".localized),

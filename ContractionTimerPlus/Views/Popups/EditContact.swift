@@ -102,7 +102,7 @@ struct EditContact: View {
                                 .stroke(.black, lineWidth: 1)
                         }
                         .keyboardType(.phonePad)
-                    */
+                   
                     
                     Toggle("report".localized, isOn: $isContact)
                         .font(.custom("Poppins-Medium", size: 16))
@@ -112,7 +112,8 @@ struct EditContact: View {
                         .font(.custom("Poppins-Medium", size: 16))
                         .foregroundColor(.black)
                         .padding(.bottom, 20)
-
+                     */
+                    
                     // ✅ Ekle / Güncelle Butonu
                     Button(action: {
                         viewModel.addOrUpdateContact(

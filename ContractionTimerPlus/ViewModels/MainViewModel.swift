@@ -24,6 +24,8 @@ class MainViewModel: ObservableObject {
     @Published var avgDuration = "0:00"
     @Published var avgFrequency = "0:00"
     
+    @Published var emailList: [String] = []
+    
     private var timer: Timer?
     
     init() {
@@ -272,6 +274,31 @@ class MainViewModel: ObservableObject {
             print("✅ Düz liste: \(self.painLists.count)")
             for record in self.painLists {
                 print("📌 processNo: \(record.processNo), StartTime: \(record.processStartTime)")
+            }
+        }
+    }
+    
+    func getMailList(modelContext: ModelContext) {
+        Task {
+            do {
+                // FetchDescriptor ile veritabanından tüm Contact kayıtlarını çek
+                let descriptor = FetchDescriptor<Contact>()
+                let results = try modelContext.fetch(descriptor)
+                
+                // Her bir Contact nesnesinden email'i al ve boş olmayanları filtrele
+                let filteredEmails = results.compactMap { $0.email }
+                                             .filter { !$0.isEmpty }
+                
+                // Ensure the update to emailList happens on the main thread
+                await MainActor.run {
+                    self.emailList = filteredEmails
+                }
+                
+            } catch {
+                // Hata durumunda completion handler ile hatayı döndür
+                await MainActor.run {
+                    self.emailList = []
+                }
             }
         }
     }
