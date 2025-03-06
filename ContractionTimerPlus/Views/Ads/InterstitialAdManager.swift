@@ -19,11 +19,11 @@ class InterstitialAdManager: NSObject, FullScreenContentDelegate, ObservableObje
     
     // DEBUG ve PRODUCTION için farklı reklam ID'leri kullanma
     private let adUnitID: String = {
-        #if DEBUG
+        //#if DEBUG
         return "ca-app-pub-3940256099942544/1033173712" // Google Test ID
-        #else
-        return "ca-app-pub-4755969652035514/9704521666" // Buraya gerçek reklam ID'nizi girin
-        #endif
+        //#else
+        //return "ca-app-pub-4755969652035514/9704521666" // Buraya gerçek reklam ID'nizi girin
+        //#endif
     }()
 
     override init() {

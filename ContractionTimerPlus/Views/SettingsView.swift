@@ -80,10 +80,14 @@ struct SettingsView: View {
                         {
                             Text("Unlock_all_the_features".localized)
                                 .font(.custom("Poppins-Medium", size: 14))
+                                .lineLimit(nil)
+                                .fixedSize(horizontal: false, vertical: true)
                                 .foregroundColor(.black)
                         }
                         Text("app_name".localized)
                             .font(.custom("DMSerifDisplay-Regular", size: 24))
+                            .lineLimit(nil)
+                            .fixedSize(horizontal: false, vertical: true)
                             .foregroundColor(.black)
                         
                         if storeManager.isSubscriptionActive == false
@@ -217,7 +221,7 @@ struct SettingsView: View {
                 
                 Spacer()
                 
-                Text("Version \(version) (Build \(build))")
+                Text(String("Version \(version) (Build \(build))"))
                     .font(.custom("Poppins-Medium", size: 12))
                     .foregroundColor(.gray)
                     .padding(.bottom, 20)
@@ -226,11 +230,11 @@ struct SettingsView: View {
                     HStack {
                         
                         BannerView(adUnitID: {
-                            #if DEBUG
+                            //#if DEBUG
                                 return "ca-app-pub-3940256099942544/2934735716"
-                            #else
-                                return "ca-app-pub-4755969652035514/5821116971"
-                            #endif
+                            //#else
+                                //return "ca-app-pub-4755969652035514/5821116971"
+                            //#endif
                         }())
                         .frame(width: 320, height: 50)
                         .padding(.horizontal, 20)

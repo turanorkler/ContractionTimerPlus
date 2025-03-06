@@ -5,6 +5,7 @@
 //  Created by ismail örkler on 21.02.2025.
 //
 import SwiftUI
+import StoreKit
 
 struct Paywall3View : View
 {
@@ -12,6 +13,7 @@ struct Paywall3View : View
     @ObservedObject var storeManager = StoreManager.shared
     
     @State private var selectedSub: SubscriptionEnum = .monthly
+    @State private var product: Product?
     
     var body : some View {
         
@@ -62,23 +64,24 @@ struct Paywall3View : View
                 
                 Spacer()
                 
-                if let product = storeManager.getProductInfo(productID: storeManager.productIDs[3])
-                {
-                    Text(String(format: NSLocalizedString("premium_weekly".localized, comment: ""),
-                                product.priceFormatted))
-                    .font(.custom("Poppins-Medium", size: 15))
+                Text(String(format: NSLocalizedString("premium_weekly".localized, comment: ""), product?.priceFormatted ?? ""))
+                    .font(.custom("Poppins-Medium", size: 14))
+                    .multilineTextAlignment(.center)
                     .foregroundColor(.white)
-                    
-                    CustomButton2(buttonText: "premium_3day_try".localized, action: {
-                        Task {
-                            try await storeManager.purchase(product)
-                        }
-                    })
-                    .padding(.top, 10)
-                }
+                
+                CustomButton2(buttonText: "premium_3day_try".localized, action: {
+                    Task {
+                        try await storeManager.purchase(product!)
+                    }
+                })
+                .padding(.top, 10)
+                
                 
                 PrivacyPolicy(color: .white)
 
+            }
+            .onAppear {
+                product = storeManager.getProductInfo(productID: storeManager.productIDs[3])
             }
             .padding(.horizontal, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)

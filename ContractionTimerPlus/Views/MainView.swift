@@ -98,11 +98,11 @@ struct MainView: View {
                     HStack {
                         
                         BannerView(adUnitID: {
-                            #if DEBUG
+                            //#if DEBUG
                                 return "ca-app-pub-3940256099942544/2934735716"
-                            #else
-                                return "ca-app-pub-4755969652035514/5821116971"
-                            #endif
+                            //#else
+                            //    return "ca-app-pub-4755969652035514/5821116971"
+                            //#endif
                         }())
                         .frame(width: 320, height: 50)
                         .padding(.horizontal, 20)

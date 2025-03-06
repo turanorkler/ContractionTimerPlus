@@ -13,6 +13,8 @@ struct Paywall2View : View
     @ObservedObject var storeManager = StoreManager.shared
     @State var selectProduct : Product?
     @State private var selectedSub: SubscriptionEnum = .weekly
+    @State private var weekly: Product?
+    @State private var monthly: Product?
     
     var body : some View {
         
@@ -54,21 +56,17 @@ struct Paywall2View : View
                 .padding(.horizontal, 15)
                 
                 HStack(spacing: 15) { // Yan yana butonlar
-                    if let product = storeManager.getProductInfo(productID: storeManager.productIDs[0])
+                    
+                    ToggleButton(title: "Weekly".localized, price: weekly?.priceFormatted ?? "",
+                                                    isActive: selectedSub == .weekly)
                     {
-                        ToggleButton(title: "Weekly".localized, price: product.priceFormatted,
-                                                        isActive: selectedSub == .weekly)
-                        {
-                            selectedSub = .weekly
-                        }
+                        selectedSub = .weekly
                     }
-                    if let product = storeManager.getProductInfo(productID: storeManager.productIDs[1])
+                    
+                    ToggleButton(title: "Monthly".localized, price: monthly?.priceFormatted ?? "",
+                                                    isActive: selectedSub == .monthly)
                     {
-                        ToggleButton(title: "Monthly".localized, price: product.priceFormatted,
-                                                        isActive: selectedSub == .monthly)
-                        {
-                            selectedSub = .monthly
-                        }
+                        selectedSub = .monthly
                     }
                 }
                 .padding(.top, 10)
@@ -76,21 +74,18 @@ struct Paywall2View : View
                 Spacer()
                 
                 if selectedSub == .weekly {
-                    if let product = storeManager.getProductInfo(productID: storeManager.productIDs[0])
-                    {
-                        Text(String(format: NSLocalizedString("premium_weekly".localized, comment: ""),
-                                    product.priceFormatted))
-                        .font(.custom("Poppins-Medium", size: 15))
-                        .foregroundColor(.white)
-                    }
+                    Text(String(format: NSLocalizedString("premium_weekly".localized, comment: ""),
+                                weekly?.priceFormatted ?? ""))
+                    .font(.custom("Poppins-Medium", size: 14))
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.white)
+                    
                 } else {
-                    if let product = storeManager.getProductInfo(productID: storeManager.productIDs[1])
-                    {
-                        Text(String(format: NSLocalizedString("premium_monthly".localized, comment: ""),
-                                    product.priceFormatted))
-                        .font(.custom("Poppins-Medium", size: 15))
-                        .foregroundColor(.white)
-                    }
+                    Text(String(format: NSLocalizedString("premium_monthly".localized, comment: ""),
+                                monthly?.priceFormatted ?? ""))
+                    .font(.custom("Poppins-Medium", size: 14))
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.white)
                 }
                 
                 CustomButton2(buttonText: "Next", action: {
@@ -111,9 +106,12 @@ struct Paywall2View : View
 
             }
             .onAppear {
+                
+                self.weekly = storeManager.getProductInfo(productID: storeManager.productIDs[0])
+                self.monthly = storeManager.getProductInfo(productID: storeManager.productIDs[1])
+                
                 if selectedSub == .weekly {
                     selectProduct = storeManager.getProductInfo(productID: storeManager.productIDs[0])
-                    //StoreManager.getProductInfo(storeManager.productIDs[0])
                 }
             }
             .padding(.horizontal, 20)

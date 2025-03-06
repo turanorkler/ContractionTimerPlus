@@ -124,7 +124,7 @@ struct PainItem : View {
         
         //let interval = timer.timeIntervalSince(pain.processStartTime)
 
-        let timer = nextItem?.processEndTime ?? Date()
+        let timer = nextItem?.processStartTime ?? Date()
         let interval = timer.timeIntervalSince(pain.processEndTime ?? Date())
         let minutes = Int(interval) / 60
         let seconds = Int(interval) % 60

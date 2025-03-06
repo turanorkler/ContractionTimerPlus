@@ -104,6 +104,70 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    func alarm(hour: Int = -1) -> Double {
+        let lastHour = Calendar.current.date(byAdding: .hour, value: hour, to: Date())!
+
+        // 1. Son X saatteki geçerli sancıları filtrele
+        let filteredPainLists = painLists.compactMap { process -> PainIntensity? in
+            guard let intensity = process.painIntensity,
+                  (1...5).contains(intensity),
+                  let endTime = process.processEndTime,
+                  process.processStartTime >= lastHour,
+                  endTime > process.processStartTime
+            else { return nil }
+            return process
+        }.sorted { $0.processStartTime < $1.processStartTime }
+
+        // 2. Yeterli veri kontrolü
+        guard filteredPainLists.count >= 3 else {
+            print("⚠️ Yetersiz veri: En az 3 tam sancı gerekli")
+            return 0.0
+        }
+        
+        // 3. Sancı özelliklerini analiz et
+        let minDuration: TimeInterval = 60.0 // 1 dakika (saniye)
+        let requiredIntensityIncrease = 2
+
+        // Son 3 sancının özellikleri
+        let lastThree = Array(filteredPainLists.suffix(3))
+        let durations = lastThree.map { $0.processEndTime!.timeIntervalSince($0.processStartTime) }
+        let intensities = lastThree.map { $0.painIntensity! }
+        
+        // Tüm sancıların minimum süreyi sağlaması
+        guard durations.allSatisfy({ $0 >= minDuration }) else {
+            print("⏱️ Sancı süresi yetersiz")
+            return 0.0
+        }
+
+        // 4. Sıklık ve şiddet analizi
+        let intervals = (1..<lastThree.count).map {
+            lastThree[$0].processStartTime.timeIntervalSince(lastThree[$0-1].processStartTime)
+        }
+        
+        let frequencyThresholds = (
+            high: TimeInterval(5 * 60),    // 5 dk (saniye)
+            medium: TimeInterval(10 * 60)  // 10 dk
+        )
+
+        // Yüksek risk: Sıklık ve şiddet artışı
+        if intervals.allSatisfy({ $0 <= frequencyThresholds.high }) &&
+           intensities.isStrictlyIncreasing() {
+            print("🚨 ACİL: Düzenli ve şiddetlenen sancılar! Hemen hastaneye gidin.")
+            return 1.0
+        }
+        // Orta risk: Sıklık artıyor veya şiddetlenme var
+        else if (intervals.last ?? 0) <= frequencyThresholds.high ||
+                intensities.isNonDecreasing() {
+            print("⚠️ UYARI: Sancılar gelişiyor. Yakın takip gerekli.")
+            return 0.5
+        }
+        // Düşük risk
+        else {
+            print("✅ NORMAL: Sancılar henüz kriterleri karşılamıyor.")
+            return 0.0
+        }
+    }
+    /*
     func alarm(hour: Int = -2) -> Double {
         let lastHour = Calendar.current.date(byAdding: .hour, value: hour, to: Date())!
 
@@ -152,8 +216,7 @@ class MainViewModel: ObservableObject {
             return 0.0 // Düşük risk
         }
     }
-
-
+     */
     
     func loadPaingList(modelContext: ModelContext) {
         Task {
