@@ -18,7 +18,8 @@ struct MainView: View {
     @ObservedObject var apple = AuthViewModel.shared
     @ObservedObject var storeManager = StoreManager.shared
     @State private var firstRun = false
-
+    @State private var hasCheckedSubscription = false
+    
     var body: some View {
         ZStack
         {
@@ -59,8 +60,8 @@ struct MainView: View {
                                 HStack(alignment: .bottom)
                                 {
                                     Text("No_Ads".localized)
-                                        .font(.custom("Poppins-Medium", size: 15))
-                                        .padding(10)
+                                        .font(.custom("Poppins-Medium", size: 12))
+                                        .padding(8)
                                         .background(.greenradial)
                                         .foregroundColor(.white)
                                         .cornerRadius(10)
@@ -121,7 +122,8 @@ struct MainView: View {
         .environmentObject(viewModel)
         .onAppear {
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
+            if !hasCheckedSubscription {
+                hasCheckedSubscription = true
                 if storeManager.isSubscriptionActive == false {
                     constants.fullScreenCover = .paywall1
                 }

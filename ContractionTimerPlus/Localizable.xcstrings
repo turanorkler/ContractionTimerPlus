@@ -5190,6 +5190,16 @@
         }
       }
     },
+    "Version %@ (Build %@)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Version %1$@ (Build %2$@)"
+          }
+        }
+      }
+    },
     "we_have_a_special" : {
       "extractionState" : "manual",
       "localizations" : {

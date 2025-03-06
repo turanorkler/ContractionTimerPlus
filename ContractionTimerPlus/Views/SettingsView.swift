@@ -10,6 +10,14 @@ import MessageUI
 
 struct SettingsView: View {
     
+    var version: String {
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+    }
+    
+    var build: String {
+        Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
+    }
+    
     @ObservedObject var admob = InterstitialAdManager.shared
     @StateObject private var lm = LanguageManager.shared
     @StateObject private var storeManager = StoreManager.shared
@@ -184,6 +192,8 @@ struct SettingsView: View {
                     }) {
                         SettingsButton(title: "Support".localized)
                     }
+                    
+                    
                     Button(action : {
                         showDeleteAlert = true
                     }) {
@@ -204,6 +214,36 @@ struct SettingsView: View {
                 }
                 .padding(.top, 5)
                 .padding(.horizontal, 20)
+                
+                Spacer()
+                
+                Text("Version \(version) (Build \(build))")
+                    .font(.custom("Poppins-Medium", size: 12))
+                    .foregroundColor(.gray)
+                    .padding(.bottom, 20)
+                
+                if storeManager.isSubscriptionActive == false {
+                    HStack {
+                        
+                        BannerView(adUnitID: {
+                            #if DEBUG
+                                return "ca-app-pub-3940256099942544/2934735716"
+                            #else
+                                return "ca-app-pub-4755969652035514/5821116971"
+                            #endif
+                        }())
+                        .frame(width: 320, height: 50)
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 15)
+                        
+                        //Text("Reklam buraya gelecek")
+                        //    .padding(20)
+                    }
+                    .frame(maxWidth: .infinity)
+                    //.background(.red)
+                }
+                
+                
             }
             //.padding(.horizontal, 20)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)

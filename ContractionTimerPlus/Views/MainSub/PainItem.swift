@@ -120,9 +120,12 @@ struct PainItem : View {
         
         // Eğer kendinden büyük bir kayıt varsa onun `processStartTime` değerini al,
         // yoksa (son kayıt ise) `Date()` kullan.
-        let timer = nextItem?.processStartTime ?? Date()
+        //let timer = nextItem?.processStartTime ?? Date()
         
-        let interval = timer.timeIntervalSince(pain.processStartTime)
+        //let interval = timer.timeIntervalSince(pain.processStartTime)
+
+        let timer = nextItem?.processEndTime ?? Date()
+        let interval = timer.timeIntervalSince(pain.processEndTime ?? Date())
         let minutes = Int(interval) / 60
         let seconds = Int(interval) % 60
         return String(format: "%2d:%02d", minutes, seconds)

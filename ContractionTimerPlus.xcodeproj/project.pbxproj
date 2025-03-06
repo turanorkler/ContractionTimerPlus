@@ -14,6 +14,7 @@
 		144638B72D6CB466004604E5 /* AdServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 144638B62D6CB466004604E5 /* AdServices.framework */; };
 		149D27C12D6F2CA500CA29F0 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 149D27C02D6F2CA500CA29F0 /* GoogleSignIn */; };
 		14B6D2BF2D6E3C1500464170 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14B6D2BE2D6E3C1500464170 /* StoreKit.framework */; };
+		14DBBC2C2D7877A700CDC664 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 14DBBC2B2D7877A700CDC664 /* FirebaseMessaging */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14DBBC2C2D7877A700CDC664 /* FirebaseMessaging in Frameworks */,
 				144638B72D6CB466004604E5 /* AdServices.framework in Frameworks */,
 				144638B12D6CB458004604E5 /* FirebaseAnalytics in Frameworks */,
 				144638B32D6CB45B004604E5 /* FirebaseCore in Frameworks */,
@@ -112,6 +114,7 @@
 				144638B22D6CB45B004604E5 /* FirebaseCore */,
 				144638B42D6CB45F004604E5 /* FirebaseAuth */,
 				149D27C02D6F2CA500CA29F0 /* GoogleSignIn */,
+				14DBBC2B2D7877A700CDC664 /* FirebaseMessaging */,
 			);
 			productName = ContractionTimerPlus;
 			productReference = 144637C32D6CB1A9004604E5 /* ContractionTimerPlus.app */;
@@ -455,6 +458,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 149D27BF2D6F2C1700CA29F0 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignIn;
+		};
+		14DBBC2B2D7877A700CDC664 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1446383B2D6CB3EC004604E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
