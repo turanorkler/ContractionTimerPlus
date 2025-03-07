@@ -14,17 +14,10 @@ class InterstitialAdManager: NSObject, FullScreenContentDelegate, ObservableObje
     
     static let shared = InterstitialAdManager()
     
+    
+    
     @Published var isAdReady = false
     private var interstitial: InterstitialAd?
-    
-    // DEBUG ve PRODUCTION için farklı reklam ID'leri kullanma
-    private let adUnitID: String = {
-        //#if DEBUG
-        return "ca-app-pub-3940256099942544/1033173712" // Google Test ID
-        //#else
-        //return "ca-app-pub-4755969652035514/9704521666" // Buraya gerçek reklam ID'nizi girin
-        //#endif
-    }()
 
     override init() {
         super.init()
@@ -34,7 +27,7 @@ class InterstitialAdManager: NSObject, FullScreenContentDelegate, ObservableObje
     // Interstitial reklamı yükleme fonksiyonu
     func loadInterstitialAd() {
         let request = Request()
-        InterstitialAd.load(with: adUnitID, request: request) { ad, error in
+        InterstitialAd.load(with: Constants.shared.getInterstitialAdsID(), request: request) { ad, error in
             if let error = error {
                 print("❌ Interstitial Reklam Yükleme Hatası: \(error.localizedDescription)")
                 self.isAdReady = false
@@ -43,7 +36,7 @@ class InterstitialAdManager: NSObject, FullScreenContentDelegate, ObservableObje
             self.interstitial = ad
             self.interstitial?.fullScreenContentDelegate = self
             self.isAdReady = true
-            print("✅ Interstitial Reklam Yüklendi! - \(self.adUnitID)")
+            print("✅ Interstitial Reklam Yüklendi! - \(Constants.shared.getInterstitialAdsID())")
         }
     }
 

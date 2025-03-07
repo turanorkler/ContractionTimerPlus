@@ -9,12 +9,13 @@ import SwiftUI
 import GoogleMobileAds
 
 struct BannerView: UIViewControllerRepresentable {
-    let adUnitID: String
-
+    
+    @State private var constants = Constants.shared
+    
     func makeUIViewController(context: Context) -> UIViewController {
         let viewController = UIViewController()
         let bannerView = AdManagerBannerView(adSize: AdSizeBanner) // Google Ad Manager Banner View
-        bannerView.adUnitID = adUnitID
+        bannerView.adUnitID = constants.getBannerAdsID()
         bannerView.rootViewController = viewController
         bannerView.load(AdManagerRequest())
 

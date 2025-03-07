@@ -89,5 +89,37 @@ class Constants: ObservableObject {
             UIApplication.shared.open(url)
         }
     }
+    
+    func getBannerAdsID() -> String {
+        #if DEBUG
+        // DEBUG modunda test reklam kimliği
+        return "ca-app-pub-3940256099942544/2934735716"
+        #else
+        // RELEASE modunda, App Store veya TestFlight kontrolü
+        if isAppStoreBuild() {
+            // App Store'da gerçek reklam kimliği
+            return "ca-app-pub-4755969652035514/5821116971"
+        } else {
+            // TestFlight veya diğer RELEASE ortamlarında test reklam kimliği
+            return "ca-app-pub-3940256099942544/2934735716"
+        }
+        #endif
+    }
+    
+    func getInterstitialAdsID() -> String {
+        #if DEBUG
+        // DEBUG modunda test reklam kimliği
+            return "ca-app-pub-3940256099942544/1033173712"
+        #else
+        // RELEASE modunda, App Store veya TestFlight kontrolü
+        if isAppStoreBuild() {
+            // App Store'da gerçek reklam kimliği
+            return "ca-app-pub-4755969652035514/9704521666"
+        } else {
+            // TestFlight veya diğer RELEASE ortamlarında test reklam kimliği
+            return "ca-app-pub-3940256099942544/1033173712"
+        }
+        #endif
+    }
 }
 
