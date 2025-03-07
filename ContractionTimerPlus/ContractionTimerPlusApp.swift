@@ -12,6 +12,11 @@ import SwiftData
 @main
 struct ContractionTimerPlusApp: App {
     
+    init() {
+        Task {
+            await AppState.shared.initialize()
+        }
+    }
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     @AppStorage("appFirstRun") private var appFirstRun: Bool = false

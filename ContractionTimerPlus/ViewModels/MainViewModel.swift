@@ -126,7 +126,7 @@ class MainViewModel: ObservableObject {
         
         // 3. Sancı özelliklerini analiz et
         let minDuration: TimeInterval = 60.0 // 1 dakika (saniye)
-        let requiredIntensityIncrease = 2
+        //let requiredIntensityIncrease = 2
 
         // Son 3 sancının özellikleri
         let lastThree = Array(filteredPainLists.suffix(3))

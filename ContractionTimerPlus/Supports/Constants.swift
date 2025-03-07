@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import UIKit
+import StoreKit
 
 class Constants: ObservableObject {
     static let shared = Constants()
@@ -96,7 +97,7 @@ class Constants: ObservableObject {
         return "ca-app-pub-3940256099942544/2934735716"
         #else
         // RELEASE modunda, App Store veya TestFlight kontrolü
-        if isAppStoreBuild() {
+        if AppState.shared.isAppStore {
             // App Store'da gerçek reklam kimliği
             return "ca-app-pub-4755969652035514/5821116971"
         } else {
@@ -112,7 +113,7 @@ class Constants: ObservableObject {
             return "ca-app-pub-3940256099942544/1033173712"
         #else
         // RELEASE modunda, App Store veya TestFlight kontrolü
-        if isAppStoreBuild() {
+        if AppState.shared.isAppStore {
             // App Store'da gerçek reklam kimliği
             return "ca-app-pub-4755969652035514/9704521666"
         } else {
@@ -121,5 +122,6 @@ class Constants: ObservableObject {
         }
         #endif
     }
+
 }
 
