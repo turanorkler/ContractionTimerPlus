@@ -25,7 +25,7 @@ struct HomeView: View {
     @State private var showingOptions = false
     @State private var sendMail = false
     var sortedPainLists: [PainIntensity] {
-        viewModel.painLists.sorted(by: { $0.processNo > $1.processNo }) // Büyükten küçüğe sırala
+        Constants.shared.painLists.sorted(by: { $0.processNo > $1.processNo }) // Büyükten küçüğe sırala
     }
     
     var body: some View {

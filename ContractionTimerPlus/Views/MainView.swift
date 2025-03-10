@@ -120,10 +120,12 @@ struct MainView: View {
                 hasCheckedSubscription = true
                 if storeManager.isSubscriptionActive == false {
                     constants.fullScreenCover = .paywall1
+                    
+                    viewModel.loadPaingList(modelContext: modelContext)
+
                 }
             }
             
-            viewModel.loadPaingList(modelContext: modelContext)
         }
         .edgesIgnoringSafeArea(.all)
         .navigationBarBackButtonHidden(true)

@@ -11,7 +11,7 @@ import SwiftData
 
 class MainViewModel: ObservableObject {
     
-    @Published var painLists: [PainIntensity] = []
+    //@Published var painLists: [PainIntensity] = []
     @Published var lastInsertedProcess: PainIntensity?
     
     @Published var screen : Screens = .start
@@ -41,16 +41,16 @@ class MainViewModel: ObservableObject {
             DispatchQueue.main.async {
                 //self.objectWillChange.send() // UI güncellenmesini tetikle
                 self.getReportData()
-                let pain = self.painLists.max(by: { $0.processNo < $1.processNo })
+                let pain = Constants.shared.painLists.max(by: { $0.processNo < $1.processNo })
                 self.lastPainDate = self.formatDuration(Date().timeIntervalSince(pain?.processStartTime ?? Date()))
-                self.contractionCount = self.painLists.count
+                self.contractionCount = Constants.shared.painLists.count
             }
         }
     }
     
     func addProcess(modelContext: ModelContext) {
         
-        let newProcessNo = (self.painLists.max(by: { $0.processNo < $1.processNo })?.processNo ?? 0) + 1
+        let newProcessNo = (Constants.shared.painLists.max(by: { $0.processNo < $1.processNo })?.processNo ?? 0) + 1
 
         let newProcess = PainIntensity(
             //processNo: self.painLists.count == 0 ? 1 : self.painLists.last!.processNo + 1,
@@ -62,8 +62,8 @@ class MainViewModel: ObservableObject {
         
         DispatchQueue.main.async {
             self.lastInsertedProcess = newProcess
-            self.painLists.append(newProcess) // Sadece listeye ekle, veritabanına kaydetme
-            print("\(newProcess.processNo) Eklendi \(self.painLists.count)")
+            Constants.shared.painLists.append(newProcess) // Sadece listeye ekle, veritabanına kaydetme
+            print("\(newProcess.processNo) Eklendi \(Constants.shared.painLists.count)")
         }
     }
 
@@ -108,7 +108,7 @@ class MainViewModel: ObservableObject {
         let lastHour = Calendar.current.date(byAdding: .hour, value: hour, to: Date())!
 
         // 1. Son X saatteki geçerli sancıları filtrele
-        let filteredPainLists = painLists.compactMap { process -> PainIntensity? in
+        let filteredPainLists = Constants.shared.painLists.compactMap { process -> PainIntensity? in
             guard let intensity = process.painIntensity,
                   (1...5).contains(intensity),
                   let endTime = process.processEndTime,
@@ -233,7 +233,7 @@ class MainViewModel: ObservableObject {
                 }
 
                 DispatchQueue.main.async {
-                    self.painLists = results
+                    Constants.shared.painLists = results
                 }
             } catch {
                 print("❌ Veri çekme hatası: \(error.localizedDescription)")
@@ -266,7 +266,7 @@ class MainViewModel: ObservableObject {
     }
 
     func getReportData() {
-        let sortedPainLists = painLists.sorted { $0.processNo > $1.processNo }
+        let sortedPainLists = Constants.shared.painLists.sorted { $0.processNo > $1.processNo }
         
         var totalDuration: TimeInterval = 0
         var totalFrequency: TimeInterval = 0
@@ -302,7 +302,7 @@ class MainViewModel: ObservableObject {
     
     func getRapor() -> [ReportData] {
         
-        let sortedPainLists = painLists.sorted { $0.processNo > $1.processNo }
+        let sortedPainLists = Constants.shared.painLists.sorted { $0.processNo > $1.processNo }
 
         var newReportList: [ReportData] = []
 
@@ -329,13 +329,13 @@ class MainViewModel: ObservableObject {
     //geçici bir fonksiyon
     func loadPaingList2(modelContext: ModelContext) {
         Task {
-            print("✅ Ters liste: \(self.painLists.count)")
-            for record in self.painLists.reversed() {
+            print("✅ Ters liste: \(Constants.shared.painLists.count)")
+            for record in Constants.shared.painLists.reversed() {
                 print("📌 processNo: \(record.processNo), StartTime: \(record.processStartTime)")
             }
 
-            print("✅ Düz liste: \(self.painLists.count)")
-            for record in self.painLists {
+            print("✅ Düz liste: \(Constants.shared.painLists.count)")
+            for record in Constants.shared.painLists {
                 print("📌 processNo: \(record.processNo), StartTime: \(record.processStartTime)")
             }
         }
@@ -383,7 +383,7 @@ class MainViewModel: ObservableObject {
                 try modelContext.save()
                 
                 DispatchQueue.main.async {
-                    self.painLists.removeAll() // Listeyi temizle
+                    Constants.shared.painLists.removeAll() // Listeyi temizle
                 }
 
                 print("✅ Tüm kayıtlar başarıyla silindi. Silinen kayıt sayısı: \(results.count)")

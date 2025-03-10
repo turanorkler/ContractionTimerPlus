@@ -94,7 +94,7 @@ struct PainItem : View {
     }
     
     private func isLastInserted() -> Bool {
-        let pro = viewModel.painLists.max(by: { $0.processNo < $1.processNo })
+        let pro = Constants.shared.painLists.max(by: { $0.processNo < $1.processNo })
         let processno = pro?.processNo == pain.processNo
         return processno
     }
@@ -113,7 +113,7 @@ struct PainItem : View {
             return "0:00"
         }
         
-        let sortedPainLists = viewModel.painLists.sorted { $0.processNo < $1.processNo }
+        let sortedPainLists = Constants.shared.painLists.sorted { $0.processNo < $1.processNo }
         
         // Kendinden bir büyük olan `processNo` değerine sahip kaydı bul
         let nextItem = sortedPainLists.first(where: { $0.processNo > pain.processNo })

@@ -13,6 +13,8 @@ import StoreKit
 class Constants: ObservableObject {
     static let shared = Constants()
     
+    @Published var painLists: [PainIntensity] = []
+    
     @Published var isPay : Bool = true
     
     @Published var fullScreenCover : FullScreenEnum? = nil
