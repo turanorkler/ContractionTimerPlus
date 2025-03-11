@@ -94,7 +94,8 @@ class Constants: ObservableObject {
     }
     
     func getBannerAdsID() -> String {
-        #if DEBUG
+        /*
+         #if DEBUG
         // DEBUG modunda test reklam kimliği
         return "ca-app-pub-3940256099942544/2934735716"
         #else
@@ -107,10 +108,13 @@ class Constants: ObservableObject {
             return "ca-app-pub-3940256099942544/2934735716"
         }
         #endif
+         */
+        return "ca-app-pub-4755969652035514/5821116971"
     }
     
     func getInterstitialAdsID() -> String {
-        #if DEBUG
+        /*
+         #if DEBUG
         // DEBUG modunda test reklam kimliği
             return "ca-app-pub-3940256099942544/1033173712"
         #else
@@ -123,6 +127,8 @@ class Constants: ObservableObject {
             return "ca-app-pub-3940256099942544/1033173712"
         }
         #endif
+        */
+        return "ca-app-pub-4755969652035514/9704521666"
     }
 
 }
