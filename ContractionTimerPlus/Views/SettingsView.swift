@@ -197,6 +197,23 @@ struct SettingsView: View {
                         SettingsButton(title: "Support".localized)
                     }
                     
+                    Button(action: {
+                        if let url = URL(string: Constants.shared.termsofuse) {
+                            UIApplication.shared.open(url)
+                        }
+                    }) {
+                        SettingsButton(title: "Terms_of_Use".localized)
+                    }
+                    
+                    Button(action: {
+                        
+                        if let url = URL(string: Constants.shared.privacypolicy) {
+                            UIApplication.shared.open(url)
+                        }
+                    }) {
+                        SettingsButton(title: "Privacy_Policy".localized)
+                    }
+                    
                     
                     Button(action : {
                         showDeleteAlert = true

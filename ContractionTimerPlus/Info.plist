@@ -2,11 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>BGTaskSchedulerPermittedIdentifiers</key>
-    <array>
-        <string>com.trn.ContractionsTimer.refresh</string>
-        <string>com.trn.ContractionsTimer.processing</string>
-    </array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>contractiontimer</string>
+		</dict>
+	</array>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.trn.ContractionsTimer.refresh</string>
+		<string>com.trn.ContractionsTimer.processing</string>
+	</array>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-4755969652035514~3481992150</string>
 	<key>GoogleUtilitiesAppDelegateProxyEnabled</key>

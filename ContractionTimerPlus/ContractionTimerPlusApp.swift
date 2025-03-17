@@ -54,6 +54,12 @@ struct ContractionTimerPlusApp: App {
                             constants.popUpCover = nil
                         }
                     }
+                    if constants.popUpCover == .info {
+                        PopUpAttention(icon: "attention", title: "Go_Hospital".localized)
+                        {
+                            constants.popUpCover = nil
+                        }
+                    }
                 }
             )
             //fullscreen popuplar burada olacak...
@@ -68,6 +74,9 @@ struct ContractionTimerPlusApp: App {
                 } else if popup == .paywall3
                 {
                     Paywall3View()
+                } else if popup == .pdfFile
+                {
+                    PDFViewer(pdfName: "who")
                 }
             }
             .modelContainer(for: [Contact.self, PainIntensity.self], inMemory: false)

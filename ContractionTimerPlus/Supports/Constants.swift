@@ -22,6 +22,11 @@ class Constants: ObservableObject {
     
     @Published var isDarkMode: Bool = false
     
+    @Published var appStoreLink: String = "https://apps.apple.com/us/app/contraction-timer-plus-9m/id1548444444"
+    @Published var termsofuse: String = "https://contraction-timer.blogspot.com/p/terms-of-use.html"
+    @Published var privacypolicy: String = "https://contraction-timer.blogspot.com/p/privacy-policy.html"
+    @Published var support: String = "https://contraction-timer.blogspot.com/p/contacts.html"
+    
     @Published var showUseFullTips: Bool {
         didSet {
             UserDefaults.standard.set(showUseFullTips, forKey: "showUseFullTips") // Kullanıcı değeri değiştirirse kaydet

@@ -29,7 +29,7 @@ struct MainView: View {
             {
                 VStack(spacing: 0)
                 {
-                    HStack(alignment: .bottom)
+                    HStack(alignment: .center)
                     {
                         NavigationLink(destination: SettingsView())
                         {
@@ -68,9 +68,14 @@ struct MainView: View {
                                         .frame(height: 40)
                                 }
                             }
-                            
-                            
                         }
+                        Button(action: {
+                            Constants.shared.popUpCover = .info
+                        }) {
+                            Image(systemName: "questionmark.circle")
+                                .tint(.black)
+                        }
+                       
                     }
                     .padding(.top, 50)
                     .padding(.horizontal, 20)

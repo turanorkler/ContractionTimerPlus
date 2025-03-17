@@ -183,6 +183,8 @@ struct ContactRow: View {
                     Text(String("📧 \(mail)"))
                         .font(.custom("Poppins-Medium", size: 12))
                         .foregroundColor(.darkgray)
+                    
+                    //Image(systemName: "")
                 }
 
                 /*

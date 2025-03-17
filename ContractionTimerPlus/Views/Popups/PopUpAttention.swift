@@ -7,11 +7,9 @@
 
 import SwiftUI
 
-struct PopUp: View {
+struct PopUpAttention: View {
     let icon: String?
     let title : String
-    let description : String
-    let subDescription : String
     let action : () -> Void
     
     @ObservedObject var constants = Constants.shared
@@ -43,16 +41,13 @@ struct PopUp: View {
                             .fixedSize()
                     }
                     
-                    Text(title.localized)
+                    Text("info_title".localized)
                         .font(.custom("Poppins-Medium", size: 25))
                         .bold()
-                        .foregroundColor(.greenradial)
+                        .foregroundColor(.alarmred)
                     
-                    Text(description.localized)
-                        .font(.custom("Poppins-Medium", size: 14))
-                        .foregroundColor(.black)
-                        .multilineTextAlignment(.center)
-
+                    
+                    AppComment(fontSize:  15)
 
                 }
                 .padding(20)
@@ -61,18 +56,6 @@ struct PopUp: View {
                 .background(.white)
                 .cornerRadius(20)
                 
-                Text(subDescription.localized)
-                    .font(.custom("Poppins-Medium", size: 14))
-                    .multilineTextAlignment(.center)
-                    .padding(.top, 30)
-                    .padding(.bottom, 10)
-                    .foregroundColor(.white)
-
-                AppComment(fontSize:  12)
-                .padding(5)
-                .background(.infotext)
-                .foregroundColor(.black)
-                .cornerRadius(10)
 
                 Spacer()
                 
@@ -87,10 +70,7 @@ struct PopUp: View {
 }
 
 #Preview {
-    PopUp(icon: "baby", title: "Get Ready",
-          description:  "We recommend that you get ready to go to the hospital. Now, you can check whether you packed all the things and documents. Time allows you to take a shower and have a light meal. Continue timing contractions. If the hospital is far away or this is not your first baby, you may be better off going to the hospital right now. In addition, we recommend that you consult you doctor.",
-          subDescription: "Average duration of contractions as 1 minute 10 seconds, average frequency is 8 minutes 24 seconds correspond to the initial phase of the first stage of labor."
-    )
+    PopUpAttention(icon: "attention", title: "Get Ready")
     {
         
     }

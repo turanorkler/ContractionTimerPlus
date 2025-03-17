@@ -10,14 +10,23 @@ import SwiftUI
 struct StartView: View {
     
     @AppStorage("appFirstRun") private var appFirstRun: Bool = false
-    @ObservedObject var admob = InterstitialAdManager.shared
+    @ObservedObject private var admob = InterstitialAdManager.shared
     @StateObject private var storeManager = StoreManager.shared
     @EnvironmentObject var viewModel: MainViewModel
-    
+    @ObservedObject private var constants: Constants = Constants.shared
     var body: some View {
         
         VStack(spacing: 0)
         {
+            
+            AppComment(fontSize:  12)
+            .padding(5)
+            .background(.infotext)
+            .foregroundColor(.black)
+            .cornerRadius(10)
+            .padding(.top, 25)
+            
+            
             Image(systemName: "exclamationmark.shield.fill")
                 .resizable()
                 .frame(width: 85, height: 110)
@@ -71,4 +80,8 @@ struct StartView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .padding(.horizontal, 20)
     }
+}
+
+#Preview {
+    StartView().environmentObject(MainViewModel())
 }

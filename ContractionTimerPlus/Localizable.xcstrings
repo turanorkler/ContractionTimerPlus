@@ -2300,6 +2300,183 @@
         }
       }
     },
+    "info_link" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انقر هنا لقراءة المقالة التفصيلية."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klicken Sie hier für den ausführlichen Artikel."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Click here for the detailed article."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haz clic aquí para ver el artículo detallado."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cliquez ici pour l'article détaillé."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "詳細な記事はこちらをクリックしてください。"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нажмите здесь, чтобы прочитать подробную статью."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detaylı makaleye ulaşmak için buraya tıklayın."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "点击这里阅读详细文章。"
+          }
+        }
+      }
+    },
+    "info_text" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المعلومات والتوصيات المقدمة في هذا التطبيق مستوحاة من المقالة المرتبطة أدناه. إن قيام المستخدم باتباع هذه التوصيات أو عدمه هو مسؤوليته بالكامل. يُقصد بهذا التطبيق أن يعمل فقط كمؤقت ويسجل الأوقات."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die in dieser Anwendung bereitgestellten Informationen und Empfehlungen sind vom unten verlinkten Artikel inspiriert. Ob der Benutzer diesen Empfehlungen folgt oder nicht, liegt vollständig in seiner Verantwortung. Diese Anwendung dient ausschließlich als Timer und zeichnet die Zeiten auf."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The information and recommendations provided in this application are inspired by the article linked below. Whether or not the user follows these recommendations is entirely their own responsibility. This application is intended solely to function as a timer and record the timings. "
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La información y las recomendaciones proporcionadas en esta aplicación están inspiradas en el artículo vinculado a continuación. Que el usuario siga o no estas recomendaciones es completamente su responsabilidad. Esta aplicación está diseñada únicamente para funcionar como un temporizador y registrar los tiempos."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les informations et recommandations fournies dans cette application sont inspirées de l'article lié ci-dessous. Le fait que l'utilisateur suive ou non ces recommandations relève entièrement de sa responsabilité. Cette application est uniquement conçue pour fonctionner comme un chronomètre et enregistrer les horaires."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このアプリで提供されている情報や推奨事項は、下記のリンク先の記事に触発されています。ユーザーがこれらの推奨事項に従うかどうかは完全に自己責任です。このアプリは単にタイマーとして機能し、タイミングを記録することを目的としています。"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Информация и рекомендации, представленные в этом приложении, вдохновлены статьей по ссылке ниже. Соблюдение этих рекомендаций пользователем полностью остается на его ответственности. Это приложение предназначено исключительно для работы в качестве таймера и записи временных интервалов."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu uygulamada sunulan bilgiler ve öneriler aşağıda bağlantılı makaleden ilham alınarak hazırlanmıştır. Kullanıcının bu önerilere uyması veya uymaması tamamen kendi sorumluluğundadır. Bu uygulama yalnızca bir kronometre olarak çalışmak ve zamanlamaları kaydetmek amacıyla tasarlanmıştır."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本应用程序中提供的信息和建议受以下链接文章的启发。用户是否遵循这些建议完全由其自行负责。本应用程序仅用作计时器并记录时间。"
+          }
+        }
+      }
+    },
+    "info_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انتباه"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Achtung"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attention"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atención"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attention"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "注意"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Внимание"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dikkat"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "注意"
+          }
+        }
+      }
+    },
     "inform_people" : {
       "extractionState" : "manual",
       "localizations" : {
