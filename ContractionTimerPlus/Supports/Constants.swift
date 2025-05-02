@@ -135,6 +135,61 @@ class Constants: ObservableObject {
         */
         return "ca-app-pub-4755969652035514/9704521666"
     }
+    
+    func scheduleNotification(title: String, body: String, interval: TimeInterval) {
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.sound = UNNotificationSound.default
+        
+        // Bildirimi ne zaman tetikleyeceğimizi belirleyelim
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: false)
+        
+        // Bildirim isteğini oluştur
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        
+        // Bildirimi zamanla
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Bildirim zamanlanamadı: \(error.localizedDescription)")
+            } else {
+                print("Bildirim başarıyla zamanlandı.")
+            }
+        }
+    }
 
+    func scheduleNotificationWithImage(title: String, body: String, imageName: String, interval: TimeInterval) {
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.sound = UNNotificationSound.default
+        
+        // Resim ekini oluştur
+        if let imageURL = Bundle.main.url(forResource: imageName, withExtension: "jpg") {
+            do {
+                let attachment = try UNNotificationAttachment(identifier: "imageAttachment", url: imageURL, options: nil)
+                content.attachments = [attachment]
+            } catch {
+                print("Resim eklenirken hata oluştu: \(error.localizedDescription)")
+            }
+        } else {
+            print("Resim bulunamadı.")
+        }
+        
+        // Bildirim tetikleyiciyi ayarla
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: false)
+        
+        // Bildirim isteğini oluştur
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        
+        // Bildirimi zamanla
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Bildirim zamanlanamadı: \(error.localizedDescription)")
+            } else {
+                print("Bildirim başarıyla zamanlandı.")
+            }
+        }
+    }
 }
 
